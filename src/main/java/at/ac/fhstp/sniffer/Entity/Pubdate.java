@@ -10,6 +10,7 @@ import javax.persistence.*;
 public class Pubdate {
     @Id
     @Column
+    @GeneratedValue
     private int id;
     @Column
     private String title;

@@ -4,13 +4,14 @@ import java.util.List;
 
 import javax.persistence.*;
 
+@Table(name = "Sniffers")
 @Entity
-@Table
+
 public class Sniffer {
 
     @Id
-
     @Column
+    @GeneratedValue
     private int id;
 
     @Column

@@ -9,6 +9,7 @@ import javax.persistence.*;
 public class Comments {
     @Id
     @Column
+    @GeneratedValue
     private int id;
     @Column
     private String comment;
