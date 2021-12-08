@@ -13,11 +13,4 @@ public class PubController
     {
         return id;
     }
-
-    @GetMapping("/hello2")
-	public String hello(@RequestParam(value = "123", defaultValue = "World") String name) {
-		return String.format("Hello %s", name);
-	}
-
-  
 }
