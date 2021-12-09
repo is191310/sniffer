@@ -21,6 +21,13 @@ public class Sniffer {
     @OneToMany
     private List<Sniffer> followed_by;
 
+    public Sniffer() {
+    }
+    
+    public Sniffer(String name) {
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }

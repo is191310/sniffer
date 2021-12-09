@@ -13,6 +13,11 @@ public class SnifferService {
     @Autowired
     SnifferRepository snifferRepository;
 
+    public Sniffer registerSniffer(String name)
+    {
+        return snifferRepository.save(new Sniffer(name));
+    }
+
     public List<Sniffer> getAllSniffers() {
         List<Sniffer> sniffers = new ArrayList<Sniffer>();
         snifferRepository.findAll().forEach(sniffer -> sniffers.add(sniffer));
@@ -27,7 +32,7 @@ public class SnifferService {
         snifferRepository.save(sniffer);
     }
 
-    public void delete(int id)
+    public void deleteSniffer(int id)
     {
         snifferRepository.deleteById(id);
     }

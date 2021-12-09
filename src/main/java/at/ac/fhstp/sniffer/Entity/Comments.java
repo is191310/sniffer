@@ -11,8 +11,10 @@ public class Comments {
     @Column
     @GeneratedValue
     private int id;
+    
     @Column
     private String comment;
+   
     @Column
     private Date date;
 
