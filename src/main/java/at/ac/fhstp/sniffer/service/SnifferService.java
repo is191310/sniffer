@@ -10,9 +10,9 @@ import at.ac.fhstp.sniffer.repository.SnifferRepository;
 
 @Service
 public class SnifferService {
+    @Autowired
     SnifferRepository snifferRepository;
 
-    @Autowired
     public List<Sniffer> getAllSniffers() {
         List<Sniffer> sniffers = new ArrayList<Sniffer>();
         snifferRepository.findAll().forEach(sniffer -> sniffers.add(sniffer));

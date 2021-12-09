@@ -14,13 +14,17 @@ public class Pubdate {
     private int id;
     @Column
     private String title;
+   
     @Column
+    @OneToMany
     private List<Sniffer> liked_by;
 
     @Column
+    @OneToMany
     private List<Comments> comment; 
 
-    @Column
+    @OneToOne
+    @JoinColumn
     private Sniffer owner;
 
     @Column
@@ -58,13 +62,13 @@ public class Pubdate {
         this.comment = comment;
     }
 
-    public Sniffer getOwner() {
+    /*public Sniffer getOwner() {
         return owner;
     }
 
     public void setOwner(Sniffer owner){
         this.owner = owner;
-    }
+    }*/
     public Date getDate() {
         return date;
     }

@@ -18,6 +18,7 @@ public class Sniffer {
     private String name;
 
     @Column
+    @OneToMany
     private List<Sniffer> followed_by;
 
     public int getId() {
