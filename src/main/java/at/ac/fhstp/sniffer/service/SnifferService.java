@@ -13,6 +13,11 @@ public class SnifferService {
     @Autowired
     SnifferRepository snifferRepository;
 
+    public Sniffer reg(String name)
+    {
+        return snifferRepository.save(new Sniffer(name));
+    }
+
     public List<Sniffer> getAllSniffers() {
         List<Sniffer> sniffers = new ArrayList<Sniffer>();
         snifferRepository.findAll().forEach(sniffer -> sniffers.add(sniffer));
