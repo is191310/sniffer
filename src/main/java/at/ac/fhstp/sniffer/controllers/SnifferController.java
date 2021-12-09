@@ -21,7 +21,7 @@ public class SnifferController
     @GetMapping("/register")
     public Sniffer reg(@RequestParam(required = true)String name)
     {
-        return sniff.reg(name);
+        return sniff.registerSniffer(name);
     }
 
     @GetMapping("/del")

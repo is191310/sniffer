@@ -13,7 +13,7 @@ public class SnifferService {
     @Autowired
     SnifferRepository snifferRepository;
 
-    public Sniffer reg(String name)
+    public Sniffer registerSniffer(String name)
     {
         return snifferRepository.save(new Sniffer(name));
     }
