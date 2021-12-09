@@ -12,6 +12,7 @@ public class Pubdate {
     @Column
     @GeneratedValue
     private int id;
+   
     @Column
     private String title;
    

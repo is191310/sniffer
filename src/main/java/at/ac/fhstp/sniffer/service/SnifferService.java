@@ -32,7 +32,7 @@ public class SnifferService {
         snifferRepository.save(sniffer);
     }
 
-    public void delete(int id)
+    public void deleteSniffer(int id)
     {
         snifferRepository.deleteById(id);
     }

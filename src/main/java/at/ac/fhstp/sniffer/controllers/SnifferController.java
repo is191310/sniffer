@@ -27,7 +27,7 @@ public class SnifferController
     @GetMapping("/del")
     public void del(@RequestParam(required = true)int id)
     {
-        sniff.delete(id);
+        sniff.deleteSniffer(id);
     }
 
     @GetMapping("/id")
