@@ -62,13 +62,13 @@ public class Pubdate {
         this.comment = comment;
     }
 
-    /*public Sniffer getOwner() {
+    public Sniffer getOwner() {
         return owner;
     }
 
     public void setOwner(Sniffer owner){
         this.owner = owner;
-    }*/
+    }
     public Date getDate() {
         return date;
     }
