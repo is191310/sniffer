@@ -12,13 +12,13 @@ import at.ac.fhstp.sniffer.Entity.Comments;
 
 import at.ac.fhstp.sniffer.service.CommentService;
 
-@RestController("PubController")
-@RequestMapping("/pubdate")
+@RestController("CommentController")
+@RequestMapping("/comment")
 public class CommentController {
     @Autowired
     CommentService commentService;
 
-    @GetMapping("/add")
+    @GetMapping("/addcomment")
     public Comments add(@RequestParam(required = true) String comment, int id, Date date) {
         return commentService.creatComment(comment, id, date);
     }
