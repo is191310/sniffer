@@ -1,6 +1,6 @@
 package at.ac.fhstp.sniffer.Entity;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +41,7 @@ public class Pubdate {
     public Pubdate(String title, Sniffer owner) {
         this.title = title;
         this.owner = owner;
+        setDate();
     }
 
     public int getId() {
@@ -85,7 +86,7 @@ public class Pubdate {
     public Date getDate() {
         return date;
     }
-    public void setDate (Date date) {
-        this.date = date;
+    public void setDate () {
+        this.date = new Date();
     }
 }
