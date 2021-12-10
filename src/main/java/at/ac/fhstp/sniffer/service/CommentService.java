@@ -17,13 +17,19 @@ public class CommentService {
     @Autowired
     SnifferRepository commentator;
 
-public Comments creatComment(String comment, int id, Date date) {
-    Sniffer c = commentator.findById(id).get();
-    return commentRepository.save(new Comments(id, date, c));
-}
-
-public void delete(int id) {
-    commentRepository.deleteById(id);
+    public Comments creatComment(String comment, int id, Date date) {
+        Sniffer c = commentator.findById(id).get();
+        return commentRepository.save(new Comments(id, date, c));
     }
 
+    public void delete(int id) {
+        commentRepository.deleteById(id);
+    }
+
+    public void likeComment(int cid, int fromid) {
+        Sniffer from = commentator.findById(fromid).get();
+        Comments likecom = commentRepository.findById(cid).get();
+        likecom.setliked_by(from);
+        commentRepository.save(likecom);
+    }
 }
