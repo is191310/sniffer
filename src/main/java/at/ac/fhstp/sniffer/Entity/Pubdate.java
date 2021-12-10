@@ -1,6 +1,7 @@
 package at.ac.fhstp.sniffer.Entity;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -18,7 +19,7 @@ public class Pubdate {
    
     @Column
     @OneToMany
-    private List<Sniffer> liked_by;
+    private List<Sniffer> liked_by = new ArrayList<Sniffer>();
 
     @Column
     @OneToMany
@@ -30,6 +31,17 @@ public class Pubdate {
 
     @Column
     private Date date;
+
+    
+
+
+    public Pubdate() {
+    }
+
+    public Pubdate(String title, Sniffer owner) {
+        this.title = title;
+        this.owner = owner;
+    }
 
     public int getId() {
         return id;
@@ -51,8 +63,8 @@ public class Pubdate {
         return liked_by;
 
      }   
-    public void setliked_by(List<Sniffer> liked_by) {
-        this.liked_by = liked_by;
+    public void setliked_by(Sniffer liked_by) {
+        this.liked_by.add(liked_by);
     }
 
     public List<Comments> getComment() {
