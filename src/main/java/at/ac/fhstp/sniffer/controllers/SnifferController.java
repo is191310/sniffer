@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import at.ac.fhstp.sniffer.Entity.Pubdate;
 import at.ac.fhstp.sniffer.Entity.Sniffer;
 import at.ac.fhstp.sniffer.service.SnifferService;
 
@@ -36,7 +37,25 @@ public class SnifferController
         return sniff.getSnifferbyId(id);
     }
 
-    
+    @GetMapping("/{id}/follower")
+    public List<Sniffer> getFollower(@PathVariable("id")int id)
+    {
+        return sniff.getFollower(id);
+    }
+
+    @GetMapping("/{fromid}/follow/{fid}")
+    public void follow(@PathVariable("fromid")int fromid, @PathVariable("fid")int fid)
+    {
+        sniff.follow(fromid, fid);
+    }
+
+    @GetMapping("/{id}/timeline")
+    public List<Pubdate> timeline(@PathVariable("id")int id)
+    {
+        return sniff.getTimeline(id);
+    }
+
+
 
     @GetMapping()
     public List<Sniffer> getAll()

@@ -5,13 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import at.ac.fhstp.sniffer.Entity.Pubdate;
 import at.ac.fhstp.sniffer.Entity.Sniffer;
+import at.ac.fhstp.sniffer.repository.PubdateRepository;
 import at.ac.fhstp.sniffer.repository.SnifferRepository;
 
 @Service
 public class SnifferService {
     @Autowired
     SnifferRepository snifferRepository;
+
+    @Autowired
+    PubdateRepository pubdateRepository;
 
     public Sniffer registerSniffer(String name)
     {
@@ -30,6 +35,26 @@ public class SnifferService {
 
     public void saveOrUpdate(Sniffer sniffer) {
         snifferRepository.save(sniffer);
+    }
+
+    public void follow(int fromid, int fid)
+    {
+        Sniffer from = snifferRepository.findById(fromid).get();
+        Sniffer follow = snifferRepository.findById(fid).get();
+        follow.setfollowed_by(from);
+        snifferRepository.save(follow);
+    }
+
+    public List<Sniffer> getFollower(int id)
+    {
+        return snifferRepository.findById(id).get().getfollowed_by();
+    }
+
+    public List<Pubdate> getTimeline(int id)
+    {
+        List<Pubdate> timeline = new ArrayList<Pubdate>();
+        Sniffer s = snifferRepository.findById(id).get();
+        return timeline ;
     }
 
     public void deleteSniffer(int id)

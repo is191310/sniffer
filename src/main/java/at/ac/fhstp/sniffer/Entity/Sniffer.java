@@ -1,8 +1,11 @@
 package at.ac.fhstp.sniffer.Entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Table(name = "Sniffers")
 @Entity
@@ -17,9 +20,10 @@ public class Sniffer {
     @Column
     private String name;
 
+    @JsonIgnore
     @Column
     @OneToMany
-    private List<Sniffer> followed_by;
+    private List<Sniffer> followed_by = new ArrayList<Sniffer>();
 
     public Sniffer() {
     }
@@ -48,8 +52,8 @@ public class Sniffer {
         return followed_by;
     }
 
-    public void setfollowed_by(List<Sniffer> followed_by) {
-        this.followed_by = followed_by;
+    public void setfollowed_by(Sniffer followed) {
+        this.followed_by.add(followed);
     }
 
 }
