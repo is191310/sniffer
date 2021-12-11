@@ -1,6 +1,6 @@
 package at.ac.fhstp.sniffer.controllers;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,13 +38,13 @@ public class SnifferController
     }
 
     @GetMapping("/{id}/follower")
-    public List<Sniffer> getFollower(@PathVariable("id")int id)
+    public Set<Sniffer> getFollower(@PathVariable("id")int id)
     {
         return sniff.getFollower(id);
     }
 
     @GetMapping("/{id}/followed")
-    public List<Sniffer> getFollowed(@PathVariable("id")int id)
+    public Set<Sniffer> getFollowed(@PathVariable("id")int id)
     {
         return sniff.getFollowed(id);
     }
@@ -62,19 +62,19 @@ public class SnifferController
     }
 
     @GetMapping("/{id}/share")
-    public List<Pubdate> getShare(@PathVariable("id")int id)
+    public Set<Pubdate> getShare(@PathVariable("id")int id)
     {
         return sniff.getShares(id);
     }
 
     @GetMapping("/{id}/timeline")
-    public List<Pubdate> timeline(@PathVariable("id")int id)
+    public Set<Pubdate> timeline(@PathVariable("id")int id)
     {
         return sniff.getTimeline(id);
     }
 
     @GetMapping()
-    public List<Sniffer> getAll()
+    public Set<Sniffer> getAll()
     {
         return sniff.getAllSniffers();
     }

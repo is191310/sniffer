@@ -1,6 +1,6 @@
 package at.ac.fhstp.sniffer.controllers;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +29,7 @@ public class CommentController {
     }
 
     @GetMapping()
-    public List<Comments> getAll()
+    public Set<Comments> getAll()
     {
         return commentService.getAllComments();
     }

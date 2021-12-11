@@ -1,7 +1,6 @@
 package at.ac.fhstp.sniffer.Entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -23,23 +22,45 @@ public class Sniffer {
     @JsonIgnore
     @Column
     @ManyToMany
-    private List<Sniffer> followed_by = new ArrayList<Sniffer>();
+    private Set<Sniffer> followed_by;
 
     @JsonIgnore
     @Column
     @ManyToMany
-    private List<Sniffer> followed = new ArrayList<Sniffer>();
+    private Set<Sniffer> followed;
 
     @JsonIgnore
     @Column
     @ManyToMany
-    private List<Pubdate> shared = new ArrayList<Pubdate>();
+    private Set<Pubdate> shared;
 
     public Sniffer() {
     }
     
     public Sniffer(String name) {
         this.name = name;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + id;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Sniffer other = (Sniffer) obj;
+        if (id != other.id)
+            return false;
+        return true;
     }
 
     public int getId() {
@@ -58,7 +79,7 @@ public class Sniffer {
         this.name = name;
     }
 
-    public List<Sniffer> getfollowed_by() {
+    public Set<Sniffer> getfollowed_by() {
         return followed_by;
     }
 
@@ -66,7 +87,7 @@ public class Sniffer {
         this.followed_by.add(follow);
     }
     
-    public List<Sniffer> getfollowed() {
+    public Set<Sniffer> getfollowed() {
         return followed;
     }
 
@@ -74,7 +95,7 @@ public class Sniffer {
         this.followed.add(follower);
     }
 
-    public List<Pubdate> getShared() {
+    public Set<Pubdate> getShared() {
         return shared;
     }
 

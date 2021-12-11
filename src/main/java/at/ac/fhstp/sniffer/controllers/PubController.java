@@ -1,6 +1,6 @@
 package at.ac.fhstp.sniffer.controllers;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,9 +46,8 @@ public class PubController
         pub.commentPub(comment, imgid, fromid);
     }
     
-
     @GetMapping()
-    public List<Pubdate> getAll()
+    public Set<Pubdate> getAll()
     {
         return pub.getAllPubdates();
     }

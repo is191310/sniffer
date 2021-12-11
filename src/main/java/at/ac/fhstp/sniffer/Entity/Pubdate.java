@@ -1,8 +1,7 @@
 package at.ac.fhstp.sniffer.Entity;
 
 import java.util.Date;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -19,11 +18,11 @@ public class Pubdate {
    
     @Column
     @OneToMany
-    private List<Sniffer> liked_by = new ArrayList<Sniffer>();
+    private Set<Sniffer> liked_by; //orpham removal = true setzen nicht vergessen!
 
     @Column
     @OneToMany
-    private List<Comments> comment = new ArrayList<Comments>(); 
+    private Set<Comments> comment;
 
     @OneToOne
     @JoinColumn
@@ -32,9 +31,6 @@ public class Pubdate {
     @Column
     private Date date;
 
-    
-
-
     public Pubdate() {
     }
 
@@ -42,6 +38,28 @@ public class Pubdate {
         this.title = title;
         this.owner = owner;
         setDate();
+    }
+ 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + id;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Pubdate other = (Pubdate) obj;
+        if (id != other.id)
+            return false;
+        return true;
     }
 
     public int getId() {
@@ -60,7 +78,7 @@ public class Pubdate {
         this.title = title;
     }
 
-    public List<Sniffer> getliked_by() {
+    public Set<Sniffer> getliked_by() {
         return liked_by;
 
      }   
@@ -68,7 +86,7 @@ public class Pubdate {
         this.liked_by.add(liked_by);
     }
 
-    public List<Comments> getComment() {
+    public Set<Comments> getComment() {
         return comment;
     }
 

@@ -1,7 +1,8 @@
 package at.ac.fhstp.sniffer.service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +24,8 @@ public class SnifferService {
         return snifferRepository.save(new Sniffer(name));
     }
 
-    public List<Sniffer> getAllSniffers() {
-        List<Sniffer> sniffers = new ArrayList<Sniffer>();
+    public Set<Sniffer> getAllSniffers() {
+        Set<Sniffer> sniffers = new HashSet<Sniffer>();
         snifferRepository.findAll().forEach(sniffer -> sniffers.add(sniffer));
         return sniffers;
     }
@@ -47,12 +48,12 @@ public class SnifferService {
         snifferRepository.save(follow);
     }
 
-    public List<Sniffer> getFollower(int id)
+    public Set<Sniffer> getFollower(int id)
     {
         return snifferRepository.findById(id).get().getfollowed_by();
     }
 
-    public List<Sniffer> getFollowed(int id)
+    public Set<Sniffer> getFollowed(int id)
     {
         return snifferRepository.findById(id).get().getfollowed();
     }
@@ -65,16 +66,15 @@ public class SnifferService {
         snifferRepository.save(from);
     }
 
-    public List<Pubdate> getShares(int id)
+    public Set<Pubdate> getShares(int id)
     {
         return snifferRepository.findById(id).get().getShared();
     }
 
-    public List<Pubdate> getTimeline(int id)
+    public Set<Pubdate> getTimeline(int id)
     {
-        List<Pubdate> timeline = new ArrayList<Pubdate>();
-        Sniffer s = snifferRepository.findById(id).get();
-        return timeline ;
+        Set<Pubdate> timeline = new HashSet<Pubdate>();
+        return timeline;
     }
 
     public void deleteSniffer(int id)

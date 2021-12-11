@@ -1,8 +1,7 @@
 package at.ac.fhstp.sniffer.Entity;
 
 import java.util.Date;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -26,7 +25,7 @@ public class Comments {
 
     @Column
     @OneToMany
-    private List<Sniffer> liked_by = new ArrayList<Sniffer>();
+    private Set<Sniffer> liked_by;
  
 
     public Comments() {
@@ -72,7 +71,7 @@ public class Comments {
         this.date = new Date();
     }
 
-    public List<Sniffer> getliked_by() {
+    public Set<Sniffer> getliked_by() {
         return liked_by;
 
     }
