@@ -43,10 +43,28 @@ public class SnifferController
         return sniff.getFollower(id);
     }
 
+    @GetMapping("/{id}/followed")
+    public List<Sniffer> getFollowed(@PathVariable("id")int id)
+    {
+        return sniff.getFollowed(id);
+    }
+
     @GetMapping("/{fromid}/follow/{fid}")
     public void follow(@PathVariable("fromid")int fromid, @PathVariable("fid")int fid)
     {
         sniff.follow(fromid, fid);
+    }
+
+    @GetMapping("/{fromid}/share/{imgid}")
+    public void getFollowed(@PathVariable("fromid")int fromid, @PathVariable("imgid")int imgid)
+    {
+        sniff.share(fromid, imgid);
+    }
+
+    @GetMapping("/{id}/share")
+    public List<Pubdate> getShare(@PathVariable("id")int id)
+    {
+        return sniff.getShares(id);
     }
 
     @GetMapping("/{id}/timeline")
@@ -54,8 +72,6 @@ public class SnifferController
     {
         return sniff.getTimeline(id);
     }
-
-
 
     @GetMapping()
     public List<Sniffer> getAll()

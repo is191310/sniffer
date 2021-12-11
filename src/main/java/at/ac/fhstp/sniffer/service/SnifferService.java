@@ -42,12 +42,32 @@ public class SnifferService {
         Sniffer from = snifferRepository.findById(fromid).get();
         Sniffer follow = snifferRepository.findById(fid).get();
         follow.setfollowed_by(from);
+        from.setfollowed(follow);
+        snifferRepository.save(from);
         snifferRepository.save(follow);
     }
 
     public List<Sniffer> getFollower(int id)
     {
         return snifferRepository.findById(id).get().getfollowed_by();
+    }
+
+    public List<Sniffer> getFollowed(int id)
+    {
+        return snifferRepository.findById(id).get().getfollowed();
+    }
+
+    public void share(int fromid, int imgid)
+    {
+        Sniffer from = snifferRepository.findById(fromid).get();
+        Pubdate pub = pubdateRepository.findById(imgid).get();
+        from.setShared(pub);
+        snifferRepository.save(from);
+    }
+
+    public List<Pubdate> getShares(int id)
+    {
+        return snifferRepository.findById(id).get().getShared();
     }
 
     public List<Pubdate> getTimeline(int id)

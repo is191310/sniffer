@@ -22,8 +22,18 @@ public class Sniffer {
 
     @JsonIgnore
     @Column
-    @OneToMany
+    @ManyToMany
     private List<Sniffer> followed_by = new ArrayList<Sniffer>();
+
+    @JsonIgnore
+    @Column
+    @ManyToMany
+    private List<Sniffer> followed = new ArrayList<Sniffer>();
+
+    @JsonIgnore
+    @Column
+    @ManyToMany
+    private List<Pubdate> shared = new ArrayList<Pubdate>();
 
     public Sniffer() {
     }
@@ -52,8 +62,23 @@ public class Sniffer {
         return followed_by;
     }
 
-    public void setfollowed_by(Sniffer followed) {
-        this.followed_by.add(followed);
+    public void setfollowed_by(Sniffer follow) {
+        this.followed_by.add(follow);
+    }
+    
+    public List<Sniffer> getfollowed() {
+        return followed;
     }
 
+    public void setfollowed(Sniffer follower) {
+        this.followed.add(follower);
+    }
+
+    public List<Pubdate> getShared() {
+        return shared;
+    }
+
+    public void setShared(Pubdate shared) {
+        this.shared.add(shared);
+    }
 }
