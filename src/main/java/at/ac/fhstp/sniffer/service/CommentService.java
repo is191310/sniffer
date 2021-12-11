@@ -1,9 +1,11 @@
 package at.ac.fhstp.sniffer.service;
 
-import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import at.ac.fhstp.sniffer.Entity.Comments;
 import at.ac.fhstp.sniffer.Entity.Sniffer;
 import at.ac.fhstp.sniffer.repository.CommentRepository;
@@ -17,9 +19,15 @@ public class CommentService {
     @Autowired
     SnifferRepository commentator;
 
-    public Comments creatComment(String comment, int id, Date date) {
-        Sniffer c = commentator.findById(id).get();
-        return commentRepository.save(new Comments(id, date, c));
+    public Comments creatComment(String comment, int fromid, int imgid) {
+        Sniffer c = commentator.findById(fromid).get();
+        return commentRepository.save(new Comments(comment, c));
+    }
+
+    public List<Comments> getAllComments() {
+        List<Comments> commentList = new ArrayList<Comments>();
+        commentRepository.findAll().forEach(a -> commentList.add(a));
+        return commentList;
     }
 
     public void delete(int id) {

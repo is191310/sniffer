@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import at.ac.fhstp.sniffer.Entity.Comments;
 import at.ac.fhstp.sniffer.Entity.Pubdate;
 import at.ac.fhstp.sniffer.Entity.Sniffer;
 import at.ac.fhstp.sniffer.repository.PubdateRepository;
@@ -17,6 +19,9 @@ public class PubdateService {
     
     @Autowired
     SnifferRepository sniff;
+
+    @Autowired
+    CommentService commentService;
 
 
     public Pubdate createPub(String title, int id)
@@ -34,15 +39,23 @@ public class PubdateService {
         pubdateRepository.save(likeimg);
     }
 
+    public void commentPub(String com, int imgid, int fromid)
+    {
+        Comments co = commentService.creatComment(com, fromid, imgid);
+        Pubdate comimg = pubdateRepository.findById(imgid).get();
+        comimg.setComment(co);
+        pubdateRepository.save(comimg);
+    }
+
     public List<Pubdate> getAllPubdates() {
         List<Pubdate> pubdateList = new ArrayList<Pubdate>();
         pubdateRepository.findAll().forEach(a -> pubdateList.add(a));
         return pubdateList;
     }
 
-    public void getPub(int id)
+    public Pubdate getPub(int id)
     {
-        pubdateRepository.findById(id);
+        return pubdateRepository.findById(id).get();
     }
 
     public void saveOrUpdate(Pubdate pubdate) {

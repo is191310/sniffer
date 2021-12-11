@@ -1,6 +1,6 @@
 package at.ac.fhstp.sniffer.Entity;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,11 +27,15 @@ public class Comments {
     @Column
     @OneToMany
     private List<Sniffer> liked_by = new ArrayList<Sniffer>();
+ 
 
-    public Comments(int id, Date date, Sniffer owner) {
-        this.id = id;
-        this.date = date;
+    public Comments() {
+    }
+
+    public Comments(String comment, Sniffer owner) {
+        this.comment = comment;
         this.owner = owner;
+        setDate();
     }
 
     public Sniffer getOwner() {
@@ -50,21 +54,22 @@ public class Comments {
         this.id = id;
     }
 
-    /*
-     * public String getComment() {
-     * return comment;
-     * }
-     * 
-     * public void setComment(String comment) {
-     * this.comment = comment;
-     * }
-     */
+    
+    public String getComment() {
+        return comment;
+    }
+     
+    public void setComment(String comment) 
+    {
+        this.comment = comment;
+    }
+     
     public Date getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate() {
+        this.date = new Date();
     }
 
     public List<Sniffer> getliked_by() {

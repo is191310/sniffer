@@ -1,6 +1,6 @@
 package at.ac.fhstp.sniffer.controllers;
 
-import java.sql.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,13 +19,19 @@ public class CommentController {
     CommentService commentService;
 
     @GetMapping("/addcomment")
-    public Comments add(@RequestParam(required = true) String comment, int id, Date date) {
-        return commentService.creatComment(comment, id, date);
+    public Comments add(@RequestParam(required = true) String comment, int fromid, int imgid) {
+        return commentService.creatComment(comment, fromid, imgid);
     }
 
     @GetMapping("/like")
     public void add(@RequestParam(required = true) int cid, int fromid) {
         commentService.likeComment(cid, fromid);
+    }
+
+    @GetMapping()
+    public List<Comments> getAll()
+    {
+        return commentService.getAllComments();
     }
 
 }

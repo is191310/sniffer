@@ -23,7 +23,7 @@ public class Pubdate {
 
     @Column
     @OneToMany
-    private List<Comments> comment; 
+    private List<Comments> comment = new ArrayList<Comments>(); 
 
     @OneToOne
     @JoinColumn
@@ -72,8 +72,8 @@ public class Pubdate {
         return comment;
     }
 
-    public void setComment(List<Comments> comment) {
-        this.comment = comment;
+    public void setComment(Comments comment) {
+        this.comment.add(comment);
     }
 
     public Sniffer getOwner() {
