@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import at.ac.fhstp.sniffer.Entity.Sniffer;
@@ -18,25 +18,27 @@ public class SnifferController
     @Autowired
     SnifferService sniff;
 
-    @GetMapping("/register")
-    public Sniffer reg(@RequestParam(required = true)String name)
+    @GetMapping("/register/{name}")
+    public Sniffer reg(@PathVariable("name")String name)
     {
         return sniff.registerSniffer(name);
     }
 
-    @GetMapping("/del")
-    public void del(@RequestParam(required = true)int id)
+    @GetMapping("/del/{id}")
+    public void del(@PathVariable("id")int id)
     {
         sniff.deleteSniffer(id);
     }
 
-    @GetMapping("/id")
-    public Sniffer getId(@RequestParam(required = true)int id)
+    @GetMapping("{id}")
+    public Sniffer getId(@PathVariable("id")int id)
     {
         return sniff.getSnifferbyId(id);
     }
 
-    @GetMapping("/all")
+    
+
+    @GetMapping()
     public List<Sniffer> getAll()
     {
         return sniff.getAllSniffers();
