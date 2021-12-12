@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import at.ac.fhstp.sniffer.entity.Pubdate;
 import at.ac.fhstp.sniffer.entity.Sniffer;
+import at.ac.fhstp.sniffer.exceptions.SnifferExceptions;
+import at.ac.fhstp.sniffer.exceptions.SnifferExceptionsNotfound;
 import at.ac.fhstp.sniffer.repository.PubdateRepository;
 import at.ac.fhstp.sniffer.repository.SnifferRepository;
 
@@ -37,72 +39,139 @@ public class SnifferService
         return sniffers;
     }
 
-    public Sniffer getSnifferbyId(int id) 
+    public Sniffer getSnifferbyId(int id) throws SnifferExceptions
     {
-        return snifferRepository.findById(id).get();
-    }
-
-    public void saveOrUpdate(Sniffer sniffer) 
-    {
-        snifferRepository.save(sniffer);
+        if(snifferRepository.existsById(id))
+        {
+            return snifferRepository.findById(id).get();
+        }
+        else
+        {
+            throw new SnifferExceptionsNotfound("Sniffer with ID '" + id + "' not found");
+        }
     }
 
     public void follow(int fromid, int fid)
     {
-        Sniffer from = snifferRepository.findById(fromid).get();
-        Sniffer follow = snifferRepository.findById(fid).get();
-        follow.setfollowed_by(from);
-        from.setfollowed(follow);
-        snifferRepository.save(from);
-        snifferRepository.save(follow);
+        if(snifferRepository.existsById(fromid))
+        {
+            Sniffer from = snifferRepository.findById(fromid).get();
+            if(snifferRepository.existsById(fid))
+            {
+                Sniffer follow = snifferRepository.findById(fid).get();
+                follow.setfollowed_by(from);
+                from.setfollowed(follow);
+                snifferRepository.save(from);
+                snifferRepository.save(follow);
+            }
+            else
+            {
+                throw new SnifferExceptionsNotfound("Sniffer with ID '" + fid + "' not found");
+            }
+        }
+        else
+        {
+            throw new SnifferExceptionsNotfound("Sniffer with ID '" + fromid + "' not found");
+        }
     }
 
     public Set<Sniffer> getFollower(int id)
     {
-        return snifferRepository.findById(id).get().getfollowed_by();
+        if(snifferRepository.existsById(id))
+        {
+            return snifferRepository.findById(id).get().getfollowed_by();
+        }
+        else
+        {
+            throw new SnifferExceptionsNotfound("Sniffer with ID '" + id + "' not found");
+        }
     }
 
     public Set<Sniffer> getFollowed(int id)
     {
-        return snifferRepository.findById(id).get().getfollowed();
+        if(snifferRepository.existsById(id))
+        {
+            return snifferRepository.findById(id).get().getfollowed();
+        }
+        else
+        {
+            throw new SnifferExceptionsNotfound("Sniffer with ID '" + id + "' not found");
+        }
+
     }
 
     public void share(int fromid, int imgid)
     {
-        Sniffer from = snifferRepository.findById(fromid).get();
-        Pubdate pub = pubdateRepository.findById(imgid).get();
-        from.setShared(pub);
-        snifferRepository.save(from);
+        if(snifferRepository.existsById(fromid))
+        {
+            Sniffer from = snifferRepository.findById(fromid).get();
+            if(pubdateRepository.existsById(imgid))
+            {
+                Pubdate pub = pubdateRepository.findById(imgid).get();
+                from.setShared(pub);
+                snifferRepository.save(from);
+            }
+            else
+            {
+                throw new SnifferExceptionsNotfound("Pubdate with ID '" + imgid + "' not found");
+            }
+        }
+        else
+        {
+            throw new SnifferExceptionsNotfound("Sniffer with ID '" + fromid + "' not found");
+        }
+        
     }
 
     public Set<Pubdate> getShares(int id)
     {
-        return snifferRepository.findById(id).get().getShared();
+        if(snifferRepository.existsById(id))
+        {
+            return snifferRepository.findById(id).get().getShared();
+        }
+        else
+        {
+            throw new SnifferExceptionsNotfound("Sniffer with ID '" + id + "' not found");
+        }
     }
 
     public Set<Pubdate> getTimeline(int id)
     {
         Set<Pubdate> timeline = new TreeSet<Pubdate>();
-        Sniffer sniffer = snifferRepository.findById(id).get();
-        for(Pubdate p : pubdateRepository.findAll())
+        if(snifferRepository.existsById(id))
         {
-            for(Sniffer s : sniffer.getfollowed())
+            Sniffer sniffer = snifferRepository.findById(id).get();
+            for(Pubdate p : pubdateRepository.findAll())
             {
-                if(p.getOwner().equals(s))
+                for(Sniffer s : sniffer.getfollowed())
                 {
-                    timeline.add(p);
-                    for(Pubdate pp : s.getShared())
+                    if(p.getOwner().equals(s))
                     {
-                        timeline.add(pp);
+                        timeline.add(p);
+                        for(Pubdate pp : s.getShared())
+                        {
+                            timeline.add(pp);
+                        }
                     }
                 }
             }
+        }
+        else
+        {
+            throw new SnifferExceptionsNotfound("Sniffer with ID '" + id + "' not found");
         }
         return timeline;
     }
 
     public void deleteSniffer(int id)
     {
-        snifferRepository.deleteById(id);
+        if(snifferRepository.existsById(id))
+        {   
+            snifferRepository.deleteById(id);
+        }
+        else
+        {
+            throw new SnifferExceptionsNotfound("Sniffer with ID '" + id + "' not found");
+        }
     }
 }
