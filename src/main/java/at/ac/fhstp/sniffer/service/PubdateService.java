@@ -81,7 +81,7 @@ public class PubdateService
             Pubdate comimg = pubdateRepository.findById(imgid).get();
             if(snifferRepository.existsById(fromid))
             {
-                if(com.isBlank())
+                if(!com.isBlank())
                 {
                     Comments co = commentService.creatComment(com, fromid);
                     comimg.setComment(co);

@@ -65,11 +65,18 @@ public class SnifferService
             Sniffer from = snifferRepository.findById(fromid).get();
             if(snifferRepository.existsById(fid))
             {
-                Sniffer follow = snifferRepository.findById(fid).get();
+                if(!(fromid == fid))
+                {
+                    Sniffer follow = snifferRepository.findById(fid).get();
                 follow.setfollowed_by(from);
                 from.setfollowed(follow);
                 snifferRepository.save(from);
                 snifferRepository.save(follow);
+                }
+                else
+                {
+                    throw new SnifferExceptions("You cannot follow yourself!");
+                }
             }
             else
             {
