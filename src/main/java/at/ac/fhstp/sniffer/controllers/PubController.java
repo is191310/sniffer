@@ -1,14 +1,16 @@
 package at.ac.fhstp.sniffer.controllers;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import at.ac.fhstp.sniffer.Entity.Pubdate;
+import at.ac.fhstp.sniffer.entity.Pubdate;
 import at.ac.fhstp.sniffer.service.PubdateService;
 
 
@@ -16,25 +18,47 @@ import at.ac.fhstp.sniffer.service.PubdateService;
 @RequestMapping("/pubdate")
 public class PubController 
 {
-    @Autowired
-    PubdateService pub;
+    PubdateService pubdateService;
     
-    @GetMapping("/add")
-    public Pubdate add(@RequestParam(required = true)String title, int id)
-    {
-        return pub.createPub(title, id);
+    @Autowired
+    public PubController(PubdateService pubdateService) {
+        this.pubdateService = pubdateService;
     }
 
-    @GetMapping("/like")
-    public void add(@RequestParam(required = true)int imgid, int fromid)
+    @PostMapping("{id}/add/{title}")
+    public Pubdate add(@PathVariable String title, @PathVariable int id)
     {
-        pub.likePub(imgid, fromid);
+        return pubdateService.createPub(title, id);
     }
 
-
-    @GetMapping("/all")
-    public List<Pubdate> getAll()
+    @DeleteMapping("{id}")
+    public void del(@PathVariable int id)
     {
-        return pub.getAllPubdates();
+        pubdateService.delete(id);
+    }
+
+    @GetMapping("{id}")
+    public Pubdate getId(@PathVariable int id)
+    {
+        return pubdateService.getPub(id);
+    }
+
+    @PostMapping("{fromid}/like/{imgid}")
+    public void add(@PathVariable int imgid, @PathVariable int fromid)
+    {
+        pubdateService.likePub(imgid, fromid);
+    }
+
+    @PostMapping("{fromid}/comment/{imgid}/{comment}")
+    public void comment(@PathVariable String comment, @PathVariable int imgid, @PathVariable int fromid)
+    {
+        
+        pubdateService.commentPub(comment, imgid, fromid);
+    }
+    
+    @GetMapping()
+    public Set<Pubdate> getAll()
+    {
+        return pubdateService.getAllPubdates();
     }
 }

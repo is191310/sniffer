@@ -1,35 +1,104 @@
 package at.ac.fhstp.sniffer.service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import at.ac.fhstp.sniffer.Entity.Sniffer;
+import at.ac.fhstp.sniffer.entity.Pubdate;
+import at.ac.fhstp.sniffer.entity.Sniffer;
+import at.ac.fhstp.sniffer.repository.PubdateRepository;
 import at.ac.fhstp.sniffer.repository.SnifferRepository;
 
 @Service
-public class SnifferService {
-    @Autowired
+public class SnifferService 
+{
     SnifferRepository snifferRepository;
+    PubdateRepository pubdateRepository;
+    
+    @Autowired
+    public SnifferService(SnifferRepository snifferRepository, PubdateRepository pubdateRepository) 
+    {
+        this.snifferRepository = snifferRepository;
+        this.pubdateRepository = pubdateRepository;
+    } 
 
     public Sniffer registerSniffer(String name)
     {
         return snifferRepository.save(new Sniffer(name));
     }
 
-    public List<Sniffer> getAllSniffers() {
-        List<Sniffer> sniffers = new ArrayList<Sniffer>();
+    public Set<Sniffer> getAllSniffers() 
+    {
+        Set<Sniffer> sniffers = new HashSet<Sniffer>();
         snifferRepository.findAll().forEach(sniffer -> sniffers.add(sniffer));
         return sniffers;
     }
 
-    public Sniffer getSnifferbyId(int id) {
+    public Sniffer getSnifferbyId(int id) 
+    {
         return snifferRepository.findById(id).get();
     }
 
-    public void saveOrUpdate(Sniffer sniffer) {
+    public void saveOrUpdate(Sniffer sniffer) 
+    {
         snifferRepository.save(sniffer);
+    }
+
+    public void follow(int fromid, int fid)
+    {
+        Sniffer from = snifferRepository.findById(fromid).get();
+        Sniffer follow = snifferRepository.findById(fid).get();
+        follow.setfollowed_by(from);
+        from.setfollowed(follow);
+        snifferRepository.save(from);
+        snifferRepository.save(follow);
+    }
+
+    public Set<Sniffer> getFollower(int id)
+    {
+        return snifferRepository.findById(id).get().getfollowed_by();
+    }
+
+    public Set<Sniffer> getFollowed(int id)
+    {
+        return snifferRepository.findById(id).get().getfollowed();
+    }
+
+    public void share(int fromid, int imgid)
+    {
+        Sniffer from = snifferRepository.findById(fromid).get();
+        Pubdate pub = pubdateRepository.findById(imgid).get();
+        from.setShared(pub);
+        snifferRepository.save(from);
+    }
+
+    public Set<Pubdate> getShares(int id)
+    {
+        return snifferRepository.findById(id).get().getShared();
+    }
+
+    public Set<Pubdate> getTimeline(int id)
+    {
+        Set<Pubdate> timeline = new TreeSet<Pubdate>();
+        Sniffer sniffer = snifferRepository.findById(id).get();
+        for(Pubdate p : pubdateRepository.findAll())
+        {
+            for(Sniffer s : sniffer.getfollowed())
+            {
+                if(p.getOwner().equals(s))
+                {
+                    timeline.add(p);
+                    for(Pubdate pp : s.getShared())
+                    {
+                        timeline.add(pp);
+                    }
+                }
+            }
+        }
+        return timeline;
     }
 
     public void deleteSniffer(int id)

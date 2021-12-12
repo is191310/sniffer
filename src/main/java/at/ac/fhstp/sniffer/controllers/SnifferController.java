@@ -1,46 +1,87 @@
 package at.ac.fhstp.sniffer.controllers;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import at.ac.fhstp.sniffer.Entity.Sniffer;
+import at.ac.fhstp.sniffer.entity.Pubdate;
+import at.ac.fhstp.sniffer.entity.Sniffer;
 import at.ac.fhstp.sniffer.service.SnifferService;
 
 @RestController("SnifferController")
 @RequestMapping("/sniffer")
 public class SnifferController 
 {
+    SnifferService snifferService;
+
     @Autowired
-    SnifferService sniff;
-
-    @GetMapping("/register")
-    public Sniffer reg(@RequestParam(required = true)String name)
-    {
-        return sniff.registerSniffer(name);
+    public SnifferController(SnifferService snifferService) {
+        this.snifferService = snifferService;
     }
 
-    @GetMapping("/del")
-    public void del(@RequestParam(required = true)int id)
+    @PostMapping("/register/{name}")
+    public Sniffer reg(@PathVariable("name")String name)
     {
-        sniff.deleteSniffer(id);
+        return snifferService.registerSniffer(name); 
     }
 
-    @GetMapping("/id")
-    public Sniffer getId(@RequestParam(required = true)int id)
+    @DeleteMapping("{id}")
+    public void delId(@PathVariable("id")int id)
     {
-        return sniff.getSnifferbyId(id);
+        snifferService.deleteSniffer(id);
     }
 
-    @GetMapping("/all")
-    public List<Sniffer> getAll()
+    @GetMapping("{id}")
+    public Sniffer getId(@PathVariable("id")int id)
     {
-        return sniff.getAllSniffers();
+        return snifferService.getSnifferbyId(id);
     }
 
-    
+    @GetMapping("/{id}/follower")
+    public Set<Sniffer> getFollower(@PathVariable("id")int id)
+    {
+        return snifferService.getFollower(id);
+    }
+
+    @GetMapping("/{id}/followed")
+    public Set<Sniffer> getFollowed(@PathVariable("id")int id)
+    {
+        return snifferService.getFollowed(id);
+    }
+
+    @PostMapping("/{fromid}/follow/{fid}")
+    public void follow(@PathVariable("fromid")int fromid, @PathVariable("fid")int fid)
+    {
+        snifferService.follow(fromid, fid);
+    }
+
+    @PostMapping("/{fromid}/share/{imgid}")
+    public void getFollowed(@PathVariable("fromid")int fromid, @PathVariable("imgid")int imgid)
+    {
+        snifferService.share(fromid, imgid);
+    }
+
+    @GetMapping("/{id}/share")
+    public Set<Pubdate> getShare(@PathVariable("id")int id)
+    {
+        return snifferService.getShares(id);
+    }
+
+    @GetMapping("/{id}/timeline")
+    public Set<Pubdate> timeline(@PathVariable("id")int id)
+    {
+        return snifferService.getTimeline(id);
+    }
+
+    @GetMapping()
+    public Set<Sniffer> getAll()
+    {
+        return snifferService.getAllSniffers();
+    }   
 }
