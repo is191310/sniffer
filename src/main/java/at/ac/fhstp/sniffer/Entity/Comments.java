@@ -20,7 +20,7 @@ public class Comments
     @Column
     private Date date;
 
-    @OneToOne(orphanRemoval = true)
+    @OneToOne
     @JoinColumn
     private Sniffer owner;
 

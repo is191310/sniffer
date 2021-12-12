@@ -21,6 +21,11 @@ public class Sniffer
 
     @JsonIgnore
     @Column
+    @OneToMany(orphanRemoval = true)
+    private Set<Pubdate> pubdates;
+
+    @JsonIgnore
+    @Column
     @ManyToMany
     private Set<Sniffer> followed_by;
 
@@ -117,4 +122,16 @@ public class Sniffer
     {
         this.shared.add(shared);
     }
+
+    public Set<Pubdate> getPubdates() 
+    {
+        return pubdates;
+    }
+
+    public void setPubdates(Pubdate pub) 
+    {
+        this.pubdates.add(pub);
+    }
+
+    
 }

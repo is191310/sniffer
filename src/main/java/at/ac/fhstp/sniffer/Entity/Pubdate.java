@@ -31,7 +31,7 @@ public class Pubdate implements Comparable<Pubdate>
     @OneToMany
     private Set<Comments> comment;
 
-    @OneToOne
+    @OneToOne()
     @JoinColumn
     private Sniffer owner;
 
@@ -48,10 +48,17 @@ public class Pubdate implements Comparable<Pubdate>
         this.title = title;
         this.owner = owner;
         setDate();
+        
+        this.metadata = genBase64();
+        owner.setPubdates(this);
+    }
+
+    private String genBase64()
+    {
         Random random = ThreadLocalRandom.current();
         byte[] randomBytes = new byte[16];
         random.nextBytes(randomBytes);
-        this.metadata = Base64.getUrlEncoder().encodeToString(randomBytes);
+        return Base64.getUrlEncoder().encodeToString(randomBytes);
     }
  
     @Override
