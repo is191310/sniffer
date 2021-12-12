@@ -2,6 +2,7 @@ package at.ac.fhstp.sniffer.service;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,29 +13,37 @@ import at.ac.fhstp.sniffer.repository.PubdateRepository;
 import at.ac.fhstp.sniffer.repository.SnifferRepository;
 
 @Service
-public class SnifferService {
-    @Autowired
+public class SnifferService 
+{
     SnifferRepository snifferRepository;
-
-    @Autowired
     PubdateRepository pubdateRepository;
+    
+    @Autowired
+    public SnifferService(SnifferRepository snifferRepository, PubdateRepository pubdateRepository) 
+    {
+        this.snifferRepository = snifferRepository;
+        this.pubdateRepository = pubdateRepository;
+    } 
 
     public Sniffer registerSniffer(String name)
     {
         return snifferRepository.save(new Sniffer(name));
     }
 
-    public Set<Sniffer> getAllSniffers() {
+    public Set<Sniffer> getAllSniffers() 
+    {
         Set<Sniffer> sniffers = new HashSet<Sniffer>();
         snifferRepository.findAll().forEach(sniffer -> sniffers.add(sniffer));
         return sniffers;
     }
 
-    public Sniffer getSnifferbyId(int id) {
+    public Sniffer getSnifferbyId(int id) 
+    {
         return snifferRepository.findById(id).get();
     }
 
-    public void saveOrUpdate(Sniffer sniffer) {
+    public void saveOrUpdate(Sniffer sniffer) 
+    {
         snifferRepository.save(sniffer);
     }
 
@@ -73,7 +82,22 @@ public class SnifferService {
 
     public Set<Pubdate> getTimeline(int id)
     {
-        Set<Pubdate> timeline = new HashSet<Pubdate>();
+        Set<Pubdate> timeline = new TreeSet<Pubdate>();
+        Sniffer sniffer = snifferRepository.findById(id).get();
+        for(Pubdate p : pubdateRepository.findAll())
+        {
+            for(Sniffer s : sniffer.getfollowed())
+            {
+                if(p.getOwner().equals(s))
+                {
+                    timeline.add(p);
+                    for(Pubdate pp : s.getShared())
+                    {
+                        timeline.add(pp);
+                    }
+                }
+            }
+        }
         return timeline;
     }
 

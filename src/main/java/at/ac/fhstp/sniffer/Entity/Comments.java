@@ -7,7 +7,8 @@ import javax.persistence.*;
 
 @Entity
 @Table
-public class Comments {
+public class Comments 
+{
     @Id
     @Column
     @GeneratedValue
@@ -28,33 +29,41 @@ public class Comments {
     private Set<Sniffer> liked_by;
  
 
-    public Comments() {
+    public Comments() 
+    {
+
     }
 
-    public Comments(String comment, Sniffer owner) {
+    public Comments(String comment, Sniffer owner) 
+    {
         this.comment = comment;
         this.owner = owner;
         setDate();
     }
 
-    public Sniffer getOwner() {
+    public Sniffer getOwner() 
+    {
         return owner;
     }
 
-    public void setOwner(Sniffer owner) {
+    public void setOwner(Sniffer owner) 
+    {
         this.owner = owner;
     }
 
-    public int getId() {
+    public int getId() 
+    {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(int id) 
+    {
         this.id = id;
     }
 
     
-    public String getComment() {
+    public String getComment() 
+    {
         return comment;
     }
      
@@ -63,20 +72,24 @@ public class Comments {
         this.comment = comment;
     }
      
-    public Date getDate() {
+    public Date getDate() 
+    {
         return date;
     }
 
-    public void setDate() {
+    public void setDate() 
+    {
         this.date = new Date();
     }
 
-    public Set<Sniffer> getliked_by() {
+    public Set<Sniffer> getliked_by() 
+    {
         return liked_by;
 
     }
 
-    public void setliked_by(Sniffer liked_by) {
+    public void setliked_by(Sniffer liked_by) 
+    {
         this.liked_by.add(liked_by);
     }
 

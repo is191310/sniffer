@@ -7,7 +7,8 @@ import javax.persistence.*;
 
 @Entity
 @Table
-public class Pubdate {
+public class Pubdate implements Comparable<Pubdate>
+{
     @Id
     @Column
     @GeneratedValue
@@ -31,17 +32,21 @@ public class Pubdate {
     @Column
     private Date date;
 
-    public Pubdate() {
+    public Pubdate() 
+    {
+
     }
 
-    public Pubdate(String title, Sniffer owner) {
+    public Pubdate(String title, Sniffer owner) 
+    {
         this.title = title;
         this.owner = owner;
         setDate();
     }
  
     @Override
-    public int hashCode() {
+    public int hashCode() 
+    {
         final int prime = 31;
         int result = 1;
         result = prime * result + id;
@@ -49,7 +54,8 @@ public class Pubdate {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(Object obj)
+    {
         if (this == obj)
             return true;
         if (obj == null)
@@ -62,49 +68,69 @@ public class Pubdate {
         return true;
     }
 
-    public int getId() {
+    @Override
+    public int compareTo(Pubdate p)
+    {
+        return p.getDate().compareTo(this.date);
+    }
+
+    public int getId() 
+    {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(int id) 
+    {
         this.id = id;
     }
 
-    public String getTitle() {
+    public String getTitle() 
+    {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(String title) 
+    {
         this.title = title;
     }
 
-    public Set<Sniffer> getliked_by() {
+    public Set<Sniffer> getliked_by() 
+    {
         return liked_by;
 
      }   
-    public void setliked_by(Sniffer liked_by) {
+    public void setliked_by(Sniffer liked_by) 
+    {
         this.liked_by.add(liked_by);
     }
 
-    public Set<Comments> getComment() {
+    public Set<Comments> getComment() 
+    {
         return comment;
     }
 
-    public void setComment(Comments comment) {
+    public void setComment(Comments comment) 
+    {
         this.comment.add(comment);
     }
 
-    public Sniffer getOwner() {
+    public Sniffer getOwner() 
+    {
         return owner;
     }
 
-    public void setOwner(Sniffer owner){
+    public void setOwner(Sniffer owner)
+    {
         this.owner = owner;
     }
-    public Date getDate() {
+    
+    public Date getDate() 
+    {
         return date;
     }
-    public void setDate () {
+
+    public void setDate () 
+    {
         this.date = new Date();
     }
 }

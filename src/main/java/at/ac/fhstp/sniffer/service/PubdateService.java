@@ -13,27 +13,30 @@ import at.ac.fhstp.sniffer.repository.PubdateRepository;
 import at.ac.fhstp.sniffer.repository.SnifferRepository;
 
 @Service
-public class PubdateService {
-    @Autowired
+public class PubdateService 
+{
     PubdateRepository pubdateRepository;
-    
-    @Autowired
-    SnifferRepository sniff;
-
-    @Autowired
+    SnifferRepository snifferRepository;
     CommentService commentService;
 
+    @Autowired
+    public PubdateService(PubdateRepository pubdateRepository, SnifferRepository snifferRepository, CommentService commentService) 
+    {
+        this.pubdateRepository = pubdateRepository;
+        this.snifferRepository = snifferRepository;
+        this.commentService = commentService;
+    }
 
     public Pubdate createPub(String title, int id)
     {
-        Sniffer owner = sniff.findById(id).get();
+        Sniffer owner = snifferRepository.findById(id).get();
 
         return pubdateRepository.save(new Pubdate(title, owner));
     }
 
     public void likePub(int imgid, int fromid)
     {
-        Sniffer from = sniff.findById(fromid).get();
+        Sniffer from = snifferRepository.findById(fromid).get();
         Pubdate likeimg = pubdateRepository.findById(imgid).get();
         likeimg.setliked_by(from);
         pubdateRepository.save(likeimg);
@@ -47,7 +50,8 @@ public class PubdateService {
         pubdateRepository.save(comimg);
     }
 
-    public Set<Pubdate> getAllPubdates() {
+    public Set<Pubdate> getAllPubdates() 
+    {
         Set<Pubdate> pubdateList = new HashSet<Pubdate>();
         pubdateRepository.findAll().forEach(a -> pubdateList.add(a));
         return pubdateList;
@@ -58,12 +62,14 @@ public class PubdateService {
         return pubdateRepository.findById(id).get();
     }
 
-    public void saveOrUpdate(Pubdate pubdate) {
+    public void saveOrUpdate(Pubdate pubdate) 
+    {
         pubdateRepository.save(pubdate);
 
     }
 
-    public void delete(int id) {
+    public void delete(int id) 
+    {
         pubdateRepository.deleteById(id);
     }
 

@@ -7,5 +7,5 @@ import at.ac.fhstp.sniffer.Entity.Sniffer;
 
 public interface SnifferRepository extends CrudRepository <Sniffer, Integer>
 {
-   
+
 }

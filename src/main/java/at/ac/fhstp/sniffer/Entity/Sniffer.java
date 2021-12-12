@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "Sniffers")
 @Entity
 
-public class Sniffer {
-
+public class Sniffer 
+{
     @Id
     @Column
     @GeneratedValue
@@ -34,15 +34,19 @@ public class Sniffer {
     @ManyToMany
     private Set<Pubdate> shared;
 
-    public Sniffer() {
+    public Sniffer() 
+    {
+
     }
     
-    public Sniffer(String name) {
+    public Sniffer(String name) 
+    {
         this.name = name;
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode() 
+    {
         final int prime = 31;
         int result = 1;
         result = prime * result + id;
@@ -50,7 +54,8 @@ public class Sniffer {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(Object obj) 
+    {
         if (this == obj)
             return true;
         if (obj == null)
@@ -63,43 +68,53 @@ public class Sniffer {
         return true;
     }
 
-    public int getId() {
+    public int getId() 
+    {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(int id) 
+    {
         this.id = id;
     }
 
-    public String getName() {
+    public String getName() 
+    {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name) 
+    {
         this.name = name;
     }
 
-    public Set<Sniffer> getfollowed_by() {
+    public Set<Sniffer> getfollowed_by() 
+    {
         return followed_by;
     }
 
-    public void setfollowed_by(Sniffer follow) {
+    public void setfollowed_by(Sniffer follow) 
+    {
         this.followed_by.add(follow);
     }
     
-    public Set<Sniffer> getfollowed() {
+    public Set<Sniffer> getfollowed() 
+    {
         return followed;
     }
 
-    public void setfollowed(Sniffer follower) {
+    public void setfollowed(Sniffer follower) 
+    {
         this.followed.add(follower);
     }
 
-    public Set<Pubdate> getShared() {
+    public Set<Pubdate> getShared() 
+    {
         return shared;
     }
 
-    public void setShared(Pubdate shared) {
+    public void setShared(Pubdate shared)
+    {
         this.shared.add(shared);
     }
 }

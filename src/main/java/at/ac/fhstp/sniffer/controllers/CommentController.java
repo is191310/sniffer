@@ -14,19 +14,17 @@ import at.ac.fhstp.sniffer.service.CommentService;
 
 @RestController("CommentController")
 @RequestMapping("/comment")
-public class CommentController {
+public class CommentController 
+{
     @Autowired
     CommentService commentService;
-
-    @GetMapping("/addcomment")
-    public Comments add(@RequestParam(required = true) String comment, int fromid, int imgid) {
-        return commentService.creatComment(comment, fromid, imgid);
-    }
 
     @GetMapping("/like")
     public void add(@RequestParam(required = true) int cid, int fromid) {
         commentService.likeComment(cid, fromid);
     }
+
+    //del comment
 
     @GetMapping()
     public Set<Comments> getAll()
