@@ -1,4 +1,4 @@
-package at.ac.fhstp.sniffer.Entity;
+package at.ac.fhstp.sniffer.entity;
 
 import java.util.Date;
 import java.util.Set;

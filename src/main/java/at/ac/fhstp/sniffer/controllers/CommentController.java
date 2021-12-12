@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import at.ac.fhstp.sniffer.Entity.Comments;
+import at.ac.fhstp.sniffer.entity.Comments;
 
 import at.ac.fhstp.sniffer.service.CommentService;
 

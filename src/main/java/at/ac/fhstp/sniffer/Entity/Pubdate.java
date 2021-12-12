@@ -1,4 +1,4 @@
-package at.ac.fhstp.sniffer.Entity;
+package at.ac.fhstp.sniffer.entity;
 
 import java.util.Base64;
 import java.util.Date;
