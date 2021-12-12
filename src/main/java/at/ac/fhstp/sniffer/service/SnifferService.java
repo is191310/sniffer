@@ -29,7 +29,14 @@ public class SnifferService
 
     public Sniffer registerSniffer(String name)
     {
-        return snifferRepository.save(new Sniffer(name));
+        if(!(name.isBlank()))
+        {
+            return snifferRepository.save(new Sniffer(name));
+        }
+        else
+        {
+            throw new SnifferExceptions("Cannot create Sniffer, username is blank");
+        }
     }
 
     public Set<Sniffer> getAllSniffers() 
@@ -39,7 +46,7 @@ public class SnifferService
         return sniffers;
     }
 
-    public Sniffer getSnifferbyId(int id) throws SnifferExceptions
+    public Sniffer getSnifferbyId(int id)
     {
         if(snifferRepository.existsById(id))
         {
@@ -99,42 +106,7 @@ public class SnifferService
         }
 
     }
-
-    public void share(int fromid, int imgid)
-    {
-        if(snifferRepository.existsById(fromid))
-        {
-            Sniffer from = snifferRepository.findById(fromid).get();
-            if(pubdateRepository.existsById(imgid))
-            {
-                Pubdate pub = pubdateRepository.findById(imgid).get();
-                from.setShared(pub);
-                snifferRepository.save(from);
-            }
-            else
-            {
-                throw new SnifferExceptionsNotfound("Pubdate with ID '" + imgid + "' not found");
-            }
-        }
-        else
-        {
-            throw new SnifferExceptionsNotfound("Sniffer with ID '" + fromid + "' not found");
-        }
-        
-    }
-
-    public Set<Pubdate> getShares(int id)
-    {
-        if(snifferRepository.existsById(id))
-        {
-            return snifferRepository.findById(id).get().getShared();
-        }
-        else
-        {
-            throw new SnifferExceptionsNotfound("Sniffer with ID '" + id + "' not found");
-        }
-    }
-
+ 
     public Set<Pubdate> getTimeline(int id)
     {
         Set<Pubdate> timeline = new TreeSet<Pubdate>();

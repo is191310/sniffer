@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import at.ac.fhstp.sniffer.entity.Comments;
 import at.ac.fhstp.sniffer.entity.Sniffer;
+import at.ac.fhstp.sniffer.exceptions.*;
 import at.ac.fhstp.sniffer.repository.CommentRepository;
 import at.ac.fhstp.sniffer.repository.SnifferRepository;
 
@@ -24,10 +25,24 @@ public class CommentService
         this.snifferRepository = snifferRepository;
     }
 
-    public Comments creatComment(String comment, int fromid, int imgid) 
+    public Comments creatComment(String comment, int fromid) 
     {
-        Sniffer c = snifferRepository.findById(fromid).get();
-        return commentRepository.save(new Comments(comment, c));
+        if(snifferRepository.existsById(fromid))
+        {
+            Sniffer c = snifferRepository.findById(fromid).get();
+            if(!comment.isBlank())
+            {
+                return commentRepository.save(new Comments(comment, c));
+            }
+            else
+            {
+                throw new SnifferExceptions("Cannot create comment, comment is blank");
+            }
+        }
+        else
+        {
+            throw new SnifferExceptionsNotfound("Sniffer with ID '" + fromid + "' not found");
+        }
     }
 
     public Set<Comments> getAllComments() 
@@ -39,19 +54,49 @@ public class CommentService
 
     public Comments getComment(int id)
     {
-        return commentRepository.findById(id).get();
+        if(commentRepository.existsById(id))
+        {
+            return commentRepository.findById(id).get();
+        }
+        else
+        {
+            throw new SnifferExceptionsNotfound("Comment with ID '" + id + "' not found");
+        }
+        
     }
 
     public void delete(int id) 
     {
-        commentRepository.deleteById(id);
+        if(commentRepository.existsById(id))
+        {
+            commentRepository.deleteById(id);
+        }
+        else
+        {
+            throw new SnifferExceptionsNotfound("Comment with ID '" + id + "' not found");
+        }
+
     }
 
     public void likeComment(int cid, int fromid) 
     {
-        Sniffer from = snifferRepository.findById(fromid).get();
-        Comments likecom = commentRepository.findById(cid).get();
-        likecom.setliked_by(from);
-        commentRepository.save(likecom);
+        if(snifferRepository.existsById(fromid))
+        {
+            Sniffer from = snifferRepository.findById(fromid).get();
+            if(commentRepository.existsById(cid))
+            {
+                Comments likecom = commentRepository.findById(cid).get();
+                likecom.setliked_by(from);
+                commentRepository.save(likecom);
+            }
+            else
+            {
+                throw new SnifferExceptionsNotfound("Comment with ID '" + cid + "' not found");
+            }
+        }
+        else
+        {
+            throw new SnifferExceptionsNotfound("Sniffer with ID '" + fromid + "' not found");
+        }
     }
 }

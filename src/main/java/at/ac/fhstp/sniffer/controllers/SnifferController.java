@@ -64,19 +64,7 @@ public class SnifferController
     {
         snifferService.follow(fromid, fid);
     }
-
-    @PostMapping("/{fromid}/share/{imgid}")
-    public void getFollowed(@PathVariable("fromid")int fromid, @PathVariable("imgid")int imgid)
-    {
-        snifferService.share(fromid, imgid);
-    }
-
-    @GetMapping("/{id}/share")
-    public Set<Pubdate> getShare(@PathVariable("id")int id)
-    {
-        return snifferService.getShares(id);
-    }
-
+    
     @GetMapping("/{id}/timeline")
     public Set<Pubdate> timeline(@PathVariable("id")int id)
     {
