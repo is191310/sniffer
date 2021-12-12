@@ -6,8 +6,8 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import at.ac.fhstp.sniffer.Entity.Comments;
-import at.ac.fhstp.sniffer.Entity.Sniffer;
+import at.ac.fhstp.sniffer.entity.Comments;
+import at.ac.fhstp.sniffer.entity.Sniffer;
 import at.ac.fhstp.sniffer.repository.CommentRepository;
 import at.ac.fhstp.sniffer.repository.SnifferRepository;
 

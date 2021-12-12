@@ -7,8 +7,8 @@ import java.util.TreeSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import at.ac.fhstp.sniffer.Entity.Pubdate;
-import at.ac.fhstp.sniffer.Entity.Sniffer;
+import at.ac.fhstp.sniffer.entity.Pubdate;
+import at.ac.fhstp.sniffer.entity.Sniffer;
 import at.ac.fhstp.sniffer.repository.PubdateRepository;
 import at.ac.fhstp.sniffer.repository.SnifferRepository;
 

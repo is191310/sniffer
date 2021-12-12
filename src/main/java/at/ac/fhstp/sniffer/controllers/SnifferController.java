@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import at.ac.fhstp.sniffer.Entity.Pubdate;
-import at.ac.fhstp.sniffer.Entity.Sniffer;
+import at.ac.fhstp.sniffer.entity.Pubdate;
+import at.ac.fhstp.sniffer.entity.Sniffer;
 import at.ac.fhstp.sniffer.service.SnifferService;
 
 @RestController("SnifferController")
