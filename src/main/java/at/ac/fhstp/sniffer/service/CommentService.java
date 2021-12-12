@@ -37,6 +37,11 @@ public class CommentService
         return commentList;
     }
 
+    public Comments getComment(int id)
+    {
+        return commentRepository.findById(id).get();
+    }
+
     public void delete(int id) 
     {
         commentRepository.deleteById(id);

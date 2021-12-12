@@ -3,8 +3,10 @@ package at.ac.fhstp.sniffer.controllers;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,39 +18,47 @@ import at.ac.fhstp.sniffer.service.PubdateService;
 @RequestMapping("/pubdate")
 public class PubController 
 {
-    @Autowired
-    PubdateService pub;
-
-
+    PubdateService pubdateService;
     
-    @GetMapping("{id}/add/{title}")
+    @Autowired
+    public PubController(PubdateService pubdateService) {
+        this.pubdateService = pubdateService;
+    }
+
+    @PostMapping("{id}/add/{title}")
     public Pubdate add(@PathVariable String title, @PathVariable int id)
     {
-        return pub.createPub(title, id);
+        return pubdateService.createPub(title, id);
+    }
+
+    @DeleteMapping("{id}")
+    public void del(@PathVariable int id)
+    {
+        pubdateService.delete(id);
     }
 
     @GetMapping("{id}")
     public Pubdate getId(@PathVariable int id)
     {
-        return pub.getPub(id);
+        return pubdateService.getPub(id);
     }
 
-    @GetMapping("{fromid}/like/{imgid}")
+    @PostMapping("{fromid}/like/{imgid}")
     public void add(@PathVariable int imgid, @PathVariable int fromid)
     {
-        pub.likePub(imgid, fromid);
+        pubdateService.likePub(imgid, fromid);
     }
 
-    @GetMapping("{fromid}/comment/{imgid}/{comment}")
+    @PostMapping("{fromid}/comment/{imgid}/{comment}")
     public void comment(@PathVariable String comment, @PathVariable int imgid, @PathVariable int fromid)
     {
         
-        pub.commentPub(comment, imgid, fromid);
+        pubdateService.commentPub(comment, imgid, fromid);
     }
     
     @GetMapping()
     public Set<Pubdate> getAll()
     {
-        return pub.getAllPubdates();
+        return pubdateService.getAllPubdates();
     }
 }

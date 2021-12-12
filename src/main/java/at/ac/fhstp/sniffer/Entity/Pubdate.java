@@ -1,7 +1,10 @@
 package at.ac.fhstp.sniffer.Entity;
 
+import java.util.Base64;
 import java.util.Date;
+import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.persistence.*;
 
@@ -16,10 +19,13 @@ public class Pubdate implements Comparable<Pubdate>
    
     @Column
     private String title;
+
+    @Column
+    private String metadata;
    
     @Column
     @OneToMany
-    private Set<Sniffer> liked_by; //orpham removal = true setzen nicht vergessen!
+    private Set<Sniffer> liked_by;
 
     @Column
     @OneToMany
@@ -42,6 +48,10 @@ public class Pubdate implements Comparable<Pubdate>
         this.title = title;
         this.owner = owner;
         setDate();
+        Random random = ThreadLocalRandom.current();
+        byte[] randomBytes = new byte[16];
+        random.nextBytes(randomBytes);
+        this.metadata = Base64.getUrlEncoder().encodeToString(randomBytes);
     }
  
     @Override
@@ -123,7 +133,7 @@ public class Pubdate implements Comparable<Pubdate>
     {
         this.owner = owner;
     }
-    
+
     public Date getDate() 
     {
         return date;
@@ -133,4 +143,13 @@ public class Pubdate implements Comparable<Pubdate>
     {
         this.date = new Date();
     }
+
+    public String getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(String metadata) {
+        this.metadata = metadata;
+    }
+   
 }
