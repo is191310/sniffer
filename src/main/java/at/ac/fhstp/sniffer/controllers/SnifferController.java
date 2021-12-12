@@ -2,7 +2,10 @@ package at.ac.fhstp.sniffer.controllers;
 
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,14 +22,21 @@ public class SnifferController
     @Autowired
     SnifferService sniff;
 
+    private static final Logger log = LoggerFactory.getLogger(SnifferController.class);
+
     @GetMapping("/register/{name}")
     public Sniffer reg(@PathVariable("name")String name)
     {
+        if(name == null || name.isBlank())
+        {
+            log.warn("Keine Name");
+        }
         return sniff.registerSniffer(name);
+        
     }
 
-    @GetMapping("/del/{id}")
-    public void del(@PathVariable("id")int id)
+    @DeleteMapping("{id}")
+    public void delId(@PathVariable("id")int id)
     {
         sniff.deleteSniffer(id);
     }
