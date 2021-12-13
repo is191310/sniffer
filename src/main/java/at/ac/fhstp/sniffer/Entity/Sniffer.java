@@ -21,7 +21,7 @@ public class Sniffer
 
     @JsonIgnore
     @Column
-    @OneToMany(orphanRemoval = true)
+    @OneToMany(orphanRemoval = true, mappedBy = "owner")
     private Set<Pubdate> pubdates;
 
     @JsonIgnore

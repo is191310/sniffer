@@ -161,7 +161,7 @@ public class PubdateService
     {
         if(pubdateRepository.existsById(id))
         {
-            pubdateRepository.findById(id).get().getOwner().delete(pubdateRepository.findById(id).get());
+            //pubdateRepository.findById(id).get().getOwner().delete(pubdateRepository.findById(id).get());
             pubdateRepository.deleteById(id);
         }
         else

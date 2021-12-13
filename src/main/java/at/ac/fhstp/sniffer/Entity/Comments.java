@@ -24,6 +24,10 @@ public class Comments
     @JoinColumn
     private Sniffer owner;
 
+    @ManyToOne
+    @JoinColumn
+    private Pubdate pubdate;
+
     @Column
     @OneToMany(orphanRemoval = true)
     private Set<Sniffer> liked_by;
