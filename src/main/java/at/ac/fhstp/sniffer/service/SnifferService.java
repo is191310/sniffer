@@ -124,7 +124,7 @@ public class SnifferService
             {
                 for(Sniffer s : sniffer.getfollowed())
                 {
-                    if(p.getOwner().equals(s))
+                    if(p.getPowner().equals(s))
                     {
                         timeline.add(p);
                         for(Pubdate pp : s.getShared())

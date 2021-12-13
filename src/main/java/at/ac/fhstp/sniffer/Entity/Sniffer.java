@@ -21,8 +21,13 @@ public class Sniffer
 
     @JsonIgnore
     @Column
-    @OneToMany(orphanRemoval = true, mappedBy = "owner")
+    @OneToMany(orphanRemoval = true, mappedBy = "powner")
     private Set<Pubdate> pubdates;
+
+    //@JsonIgnore
+    //@Column
+    //@OneToMany(orphanRemoval = true)
+   // private Set<Comments> comment;
 
     @JsonIgnore
     @Column
@@ -137,6 +142,16 @@ public class Sniffer
     {
         this.pubdates.add(pub);
     }
+
+   // public Set<Comments> getCommentss() 
+   // {
+   //     return comment;
+  //  }
+
+   // public void setComments(Comments com) 
+  //  {
+  //      this.comment.add(com);
+  //  }
 
     
 }

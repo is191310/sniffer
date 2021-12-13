@@ -28,12 +28,12 @@ public class Pubdate implements Comparable<Pubdate>
     private Set<Sniffer> liked_by;
 
     @Column
-    @OneToMany
+    @OneToMany(orphanRemoval = true)
     private Set<Comments> comment;
 
     @OneToOne
     @JoinColumn
-    private Sniffer owner;
+    private Sniffer powner;
 
     @Column
     private Date date;
@@ -43,14 +43,13 @@ public class Pubdate implements Comparable<Pubdate>
 
     }
 
-    public Pubdate(String title, Sniffer owner) 
+    public Pubdate(String title, Sniffer powner) 
     {
         this.title = title;
-        this.owner = owner;
+        this.powner = powner;
         setDate();
-        
         this.metadata = genBase64();
-        owner.setPubdates(this);
+        powner.setPubdates(this);
     }
 
     private String genBase64()
@@ -131,14 +130,14 @@ public class Pubdate implements Comparable<Pubdate>
         this.comment.add(comment);
     }
 
-    public Sniffer getOwner() 
+    public Sniffer getPowner() 
     {
-        return owner;
+        return powner;
     }
 
-    public void setOwner(Sniffer owner)
+    public void setPowner(Sniffer powner)
     {
-        this.owner = owner;
+        this.powner = powner;
     }
 
     public Date getDate() 

@@ -22,11 +22,10 @@ public class Comments
 
     @OneToOne
     @JoinColumn
-    private Sniffer owner;
+    private Sniffer cowner;
 
     @ManyToOne
-    @JoinColumn
-    private Pubdate pubdate;
+    private Pubdate pub;
 
     @Column
     @OneToMany(orphanRemoval = true)
@@ -38,21 +37,21 @@ public class Comments
 
     }
 
-    public Comments(String comment, Sniffer owner) 
+    public Comments(String comment, Sniffer cowner) 
     {
         this.comment = comment;
-        this.owner = owner;
+        this.cowner = cowner;
         setDate();
     }
 
-    public Sniffer getOwner() 
+    public Sniffer getCowner() 
     {
-        return owner;
+        return cowner;
     }
 
-    public void setOwner(Sniffer owner) 
+    public void setCowner(Sniffer cowner) 
     {
-        this.owner = owner;
+        this.cowner = cowner;
     }
 
     public int getId() 
