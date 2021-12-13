@@ -163,7 +163,7 @@ public class SnifferService
         return timeline;
     }
 
-    public void deleteSniffer(int id)
+    public String deleteSniffer(int id)
     {
         if(snifferRepository.existsById(id))
         {   
@@ -173,5 +173,6 @@ public class SnifferService
         {
             throw new SnifferExceptionsNotfound("Sniffer with ID '" + id + "' not found");
         }
+        return "Sniffer is deleted";
     }
 }
