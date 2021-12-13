@@ -49,7 +49,6 @@ public class Pubdate implements Comparable<Pubdate>
         this.powner = powner;
         setDate();
         this.metadata = genBase64();
-        powner.setPubdates(this);
     }
 
     private String genBase64()

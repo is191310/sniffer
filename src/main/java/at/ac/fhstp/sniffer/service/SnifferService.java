@@ -144,13 +144,22 @@ public class SnifferService
 
     public void deleteSniffer(int id)
     {
-        if(snifferRepository.existsById(id))
+        if(!(snifferRepository.existsById(id)))
         {   
-            snifferRepository.deleteById(id);
-        }
-        else
-        {
             throw new SnifferExceptionsNotfound("Sniffer with ID '" + id + "' not found");
+
         }
+        
+        //Sniffer user = snifferRepository.findById(id).get();
+        
+        /*for(Pubdate p : pubdateRepository.findAll())
+        {
+            if(p.getPowner().equals(user))
+            {
+                pubdateRepository.deleteById(p.getId());
+            }
+        }*/
+
+        snifferRepository.deleteById(id);
     }
 }

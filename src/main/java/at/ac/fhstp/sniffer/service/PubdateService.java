@@ -52,26 +52,20 @@ public class PubdateService
 
     public void likePub(int imgid, int fromid)
     {
-        if(snifferRepository.existsById(fromid))
-        {
-            Sniffer from = snifferRepository.findById(fromid).get();
-            if(pubdateRepository.existsById(imgid))
-            {
-                Pubdate likeimg = pubdateRepository.findById(imgid).get();
-                likeimg.setliked_by(from);
-                pubdateRepository.save(likeimg);
-            }
-            else
-            {
-                throw new SnifferExceptionsNotfound("Pubdate with ID '" + imgid + "' not found");
-            }
-
-        }
-        else
+        if(!(snifferRepository.existsById(fromid)))
         {
             throw new SnifferExceptionsNotfound("Sniffer with ID '" + fromid + "' not found");
         }
+        
+        if(!(pubdateRepository.existsById(imgid)))
+        {
+            throw new SnifferExceptionsNotfound("Pubdate with ID '" + imgid + "' not found");
+        }
 
+        Sniffer from = snifferRepository.findById(fromid).get();
+        Pubdate likeimg = pubdateRepository.findById(imgid).get();
+        likeimg.setliked_by(from);
+        pubdateRepository.save(likeimg);
     }
 
     public void commentPub(String com, int imgid, int fromid)

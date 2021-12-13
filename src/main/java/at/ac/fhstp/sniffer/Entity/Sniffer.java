@@ -22,12 +22,11 @@ public class Sniffer
     @JsonIgnore
     @Column
     @OneToMany(orphanRemoval = true, mappedBy = "powner")
-    private Set<Pubdate> pubdates;
+    private Set<Pubdate> pubs;
 
-    //@JsonIgnore
-    //@Column
-    //@OneToMany(orphanRemoval = true)
-   // private Set<Comments> comment;
+    @Column
+    @ManyToMany(mappedBy = "liked_by")
+    private Set<Pubdate> likes;
 
     @JsonIgnore
     @Column
@@ -47,11 +46,6 @@ public class Sniffer
     public Sniffer() 
     {
 
-    }
-
-    public void delete(Pubdate p)
-    {
-        this.pubdates.remove(p);
     }
     
     public Sniffer(String name) 
@@ -132,26 +126,5 @@ public class Sniffer
     {
         this.shared.add(shared);
     }
-
-    public Set<Pubdate> getPubdates() 
-    {
-        return pubdates;
-    }
-
-    public void setPubdates(Pubdate pub) 
-    {
-        this.pubdates.add(pub);
-    }
-
-   // public Set<Comments> getCommentss() 
-   // {
-   //     return comment;
-  //  }
-
-   // public void setComments(Comments com) 
-  //  {
-  //      this.comment.add(com);
-  //  }
-
     
 }
