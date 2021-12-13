@@ -43,6 +43,11 @@ public class Sniffer
     {
 
     }
+
+    public void delete(Pubdate p)
+    {
+        this.pubdates.remove(p);
+    }
     
     public Sniffer(String name) 
     {

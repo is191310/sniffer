@@ -31,7 +31,7 @@ public class Pubdate implements Comparable<Pubdate>
     @OneToMany
     private Set<Comments> comment;
 
-    @OneToOne()
+    @OneToOne
     @JoinColumn
     private Sniffer owner;
 
