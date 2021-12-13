@@ -20,7 +20,7 @@ public class Comments
     @Column
     private Date date;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn
     private Sniffer cowner;
 
@@ -28,7 +28,7 @@ public class Comments
     private Pubdate pub;
 
     @Column
-    @OneToMany(orphanRemoval = true)
+    @OneToMany
     private Set<Sniffer> liked_by;
  
 
