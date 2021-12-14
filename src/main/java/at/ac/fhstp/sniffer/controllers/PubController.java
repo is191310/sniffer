@@ -21,7 +21,8 @@ public class PubController
     PubdateService pubdateService;
     
     @Autowired
-    public PubController(PubdateService pubdateService) {
+    public PubController(PubdateService pubdateService) 
+    {
         this.pubdateService = pubdateService;
     }
 
