@@ -131,7 +131,7 @@ public class SnifferService
         return timeline;
     }
 
-    public void deleteSniffer(int id)
+    public String deleteSniffer(int id)
     {
         if(!snifferRepository.existsById(id))
         {   
@@ -195,5 +195,7 @@ public class SnifferService
         }
 
         snifferRepository.deleteById(id);
+
+        return "User deleted";
     }
 }

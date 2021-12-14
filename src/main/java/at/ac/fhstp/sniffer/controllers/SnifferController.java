@@ -58,16 +58,6 @@ public class SnifferController
         snifferService.follow(fromid, fid);
     }
 
-    @PostMapping("/{fromid}/share/{imgid}")
-    public void getFollowed(@PathVariable("fromid") int fromid, @PathVariable("imgid") int imgid) {
-        snifferService.share(fromid, imgid);
-    }
-
-    @GetMapping("/{id}/share")
-    public Set<Pubdate> getShare(@PathVariable("id") int id) {
-        return snifferService.getShares(id);
-    }
-
     @GetMapping("/{id}/timeline")
     public Set<Pubdate> timeline(@PathVariable("id") int id) {
         return snifferService.getTimeline(id);
@@ -79,8 +69,9 @@ public class SnifferController
     }
 
     @DeleteMapping("/deleteMapping")
-    public ResponseEntity<String> deleteEntity (@RequestParam ("sniffer-id") int snifferId) {
+    public ResponseEntity<String> deleteEntity (@RequestParam ("sniffer-id") int snifferId) 
+    {
     String response = snifferService.deleteSniffer(snifferId);
     return new ResponseEntity<>(response, HttpStatus.OK);
-}
+    }
 }

@@ -1,12 +1,11 @@
 package at.ac.fhstp.sniffer.controllers;
-
+/*
 import java.util.Date;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -19,8 +18,10 @@ import ch.qos.logback.core.net.ObjectWriter;
 
 import at.ac.fhstp.sniffer.repository.CommentRepository;
 import at.ac.fhstp.sniffer.controllers.CommentController;
-import at.ac.fhstp.sniffer.Entity.Comments;
-import at.ac.fhstp.sniffer.Entity.Sniffer;
+import at.ac.fhstp.sniffer.entity.Comments;
+import at.ac.fhstp.sniffer.entity.Sniffer;
+
+
 
 @RunWith(MockitoJUnitRunner.class)
 public class CommentControllerTest {
@@ -41,7 +42,7 @@ public class CommentControllerTest {
    
     Comments TEST_CASE = new Comments(1, date,sniff);
     
-    @Before
+    @BeforeAll
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         this.mockMvc = MockMvcBuilders.standaloneSetup(commentController).build();
@@ -54,4 +55,4 @@ public class CommentControllerTest {
        // https://www.youtube.com/watch?v=KYkEMuA50yE
        // 1:09:00
     }
-}
+}*/
