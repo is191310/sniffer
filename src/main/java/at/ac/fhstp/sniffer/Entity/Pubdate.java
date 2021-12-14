@@ -8,6 +8,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import javax.persistence.*;
 
+
+
 @Entity
 @Table
 public class Pubdate implements Comparable<Pubdate>
@@ -27,8 +29,7 @@ public class Pubdate implements Comparable<Pubdate>
     @OneToMany
     private Set<Sniffer> liked_by;
 
-    @Column
-    @OneToMany(orphanRemoval = true)
+    @OneToMany
     private Set<Comments> comment;
 
     @OneToOne
@@ -113,11 +114,18 @@ public class Pubdate implements Comparable<Pubdate>
     {
         return liked_by;
 
-     }   
+    }   
+    
     public void setliked_by(Sniffer liked_by) 
     {
         this.liked_by.add(liked_by);
     }
+
+    public void removesetliked_by(Sniffer liked_by) 
+    {
+        this.liked_by.remove(liked_by);
+    }
+
 
     public Set<Comments> getComment() 
     {
@@ -127,6 +135,11 @@ public class Pubdate implements Comparable<Pubdate>
     public void setComment(Comments comment) 
     {
         this.comment.add(comment);
+    }
+
+    public void removeComment(Comments comment)
+    {
+        this.comment.remove(comment);
     }
 
     public Sniffer getPowner() 
@@ -156,5 +169,7 @@ public class Pubdate implements Comparable<Pubdate>
     public void setMetadata(String metadata) {
         this.metadata = metadata;
     }
+
+    
    
 }

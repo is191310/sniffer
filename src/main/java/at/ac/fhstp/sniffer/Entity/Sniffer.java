@@ -24,10 +24,6 @@ public class Sniffer
     @OneToMany(orphanRemoval = true, mappedBy = "powner")
     private Set<Pubdate> pubs;
 
-    @Column
-    @ManyToMany(mappedBy = "liked_by")
-    private Set<Pubdate> likes;
-
     @JsonIgnore
     @Column
     @ManyToMany
@@ -106,6 +102,11 @@ public class Sniffer
     {
         this.followed_by.add(follow);
     }
+
+    public void removefollowed_by(Sniffer follow) 
+    {
+        this.followed_by.remove(follow);
+    }
     
     public Set<Sniffer> getfollowed() 
     {
@@ -117,6 +118,11 @@ public class Sniffer
         this.followed.add(follower);
     }
 
+    public void removeFollowed(Sniffer f)
+    {
+        this.followed.remove(f);
+    }
+
     public Set<Pubdate> getShared() 
     {
         return shared;
@@ -126,5 +132,4 @@ public class Sniffer
     {
         this.shared.add(shared);
     }
-    
 }

@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table
 public class Comments 
@@ -20,12 +21,9 @@ public class Comments
     @Column
     private Date date;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn
     private Sniffer cowner;
-
-    @ManyToOne
-    private Pubdate pub;
 
     @Column
     @OneToMany
@@ -88,7 +86,6 @@ public class Comments
     public Set<Sniffer> getliked_by() 
     {
         return liked_by;
-
     }
 
     public void setliked_by(Sniffer liked_by) 
