@@ -24,42 +24,50 @@ public class SnifferController
     SnifferService snifferService;
 
     @Autowired
-    public SnifferController(SnifferService snifferService) {
+    public SnifferController(SnifferService snifferService) 
+    {
         this.snifferService = snifferService;
     }
 
     @PostMapping("/register/{name}")
-    public Sniffer reg(@PathVariable("name") String name) {
+    public Sniffer reg(@PathVariable("name") String name) 
+    {
         return snifferService.registerSniffer(name);
     }
 
     @DeleteMapping("{id}")
-    public void delId(@PathVariable("id") int id) {
+    public void delId(@PathVariable("id") int id) 
+    {
         snifferService.deleteSniffer(id);
     }
 
     @GetMapping("{id}")
-    public Sniffer getId(@PathVariable("id") int id) {
+    public Sniffer getId(@PathVariable("id") int id) 
+    {
         return snifferService.getSnifferbyId(id);
     }
 
     @GetMapping("/{id}/follower")
-    public Set<Sniffer> getFollower(@PathVariable("id") int id) {
+    public Set<Sniffer> getFollower(@PathVariable("id") int id) 
+    {
         return snifferService.getFollower(id);
     }
 
     @GetMapping("/{id}/followed")
-    public Set<Sniffer> getFollowed(@PathVariable("id") int id) {
+    public Set<Sniffer> getFollowed(@PathVariable("id") int id) 
+    {
         return snifferService.getFollowed(id);
     }
 
     @PostMapping("/{fromid}/follow/{fid}")
-    public void follow(@PathVariable("fromid") int fromid, @PathVariable("fid") int fid) {
+    public void follow(@PathVariable("fromid") int fromid, @PathVariable("fid") int fid) 
+    {
         snifferService.follow(fromid, fid);
     }
 
     @GetMapping("/{id}/timeline")
-    public Set<Pubdate> timeline(@PathVariable("id") int id) {
+    public Set<Pubdate> timeline(@PathVariable("id") int id) 
+    {
         return snifferService.getTimeline(id);
     }
 

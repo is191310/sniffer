@@ -24,11 +24,7 @@ public class Comments
     @JoinColumn
     private Sniffer cowner;
 
-
-    public Comments() 
-    {
-
-    }
+    public Comments(){}
 
     public Comments(String comment, Sniffer cowner) 
     {

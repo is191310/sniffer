@@ -39,10 +39,7 @@ public class Sniffer
     @ManyToMany
     private Set<Pubdate> shared;
 
-    public Sniffer() 
-    {
-
-    }
+    public Sniffer(){}
     
     public Sniffer(String name) 
     {

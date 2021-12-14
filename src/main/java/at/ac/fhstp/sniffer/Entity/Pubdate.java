@@ -39,10 +39,7 @@ public class Pubdate implements Comparable<Pubdate>
     @Column
     private Date date;
 
-    public Pubdate() 
-    {
-
-    }
+    public Pubdate(){}
 
     public Pubdate(String title, Sniffer powner) 
     {

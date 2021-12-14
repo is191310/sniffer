@@ -20,7 +20,8 @@ public class CommentController
     CommentService commentService;
 
     @Autowired
-    public CommentController(CommentService commentService) {
+    public CommentController(CommentService commentService) 
+    {
         this.commentService = commentService;
     }
 
