@@ -24,12 +24,6 @@ public class CommentController
         this.commentService = commentService;
     }
 
-    /*@GetMapping("{fromid}/like/{cid}")
-    public void add(@PathVariable("cid") int cid, @PathVariable("fromid") int fromid) 
-    {
-        commentService.likeComment(cid, fromid);
-    }*/
-
     @GetMapping("/{id}")
     public Comments getCom(@PathVariable("id")int id)
     {

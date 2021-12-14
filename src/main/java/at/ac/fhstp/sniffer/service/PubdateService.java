@@ -58,6 +58,7 @@ public class PubdateService
 
         Sniffer from = snifferRepository.findById(fromid).get();
         Pubdate likeimg = pubdateRepository.findById(imgid).get();
+        
         likeimg.setliked_by(from);
         pubdateRepository.save(likeimg);
     }
@@ -141,20 +142,6 @@ public class PubdateService
             throw new SnifferExceptionsNotfound("Pubdate with ID '" + id + "' not found");
         }
         
-        Pubdate p = pubdateRepository.findById(id).get();
-
-        for(Comments c : commentRepository.findAll())
-        {
-            for(Comments cc : p.getComment())
-            {
-                if(c.equals(cc))
-                {
-                    p.removeComment(c);
-                    commentRepository.deleteById(c.getId());
-                }
-            }
-        }  
-
         pubdateRepository.deleteById(id);
     }
 }

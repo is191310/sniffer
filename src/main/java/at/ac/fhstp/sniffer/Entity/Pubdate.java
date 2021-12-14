@@ -29,7 +29,7 @@ public class Pubdate implements Comparable<Pubdate>
     @OneToMany
     private Set<Sniffer> liked_by;
 
-    @OneToMany
+    @OneToMany(orphanRemoval = true)
     private Set<Comments> comment;
 
     @OneToOne
@@ -169,7 +169,4 @@ public class Pubdate implements Comparable<Pubdate>
     public void setMetadata(String metadata) {
         this.metadata = metadata;
     }
-
-    
-   
 }

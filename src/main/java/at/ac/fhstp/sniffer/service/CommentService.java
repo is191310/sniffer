@@ -76,24 +76,7 @@ public class CommentService
                 }
             }
         }
+
         commentRepository.deleteById(id);
-    }
-
-    public void likeComment(int cid, int fromid) 
-    {
-        if(!snifferRepository.existsById(fromid))
-        {
-            throw new SnifferExceptionsNotfound("Sniffer with ID '" + fromid + "' not found");
-        }
-        if(!commentRepository.existsById(cid))
-        {
-            throw new SnifferExceptionsNotfound("Comment with ID '" + cid + "' not found");
-        }
-
-        Sniffer from = snifferRepository.findById(fromid).get();
-        Comments likecom = commentRepository.findById(cid).get();
-        
-        likecom.setliked_by(from);
-        commentRepository.save(likecom);
     }
 }

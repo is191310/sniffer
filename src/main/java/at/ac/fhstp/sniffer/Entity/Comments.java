@@ -1,7 +1,6 @@
 package at.ac.fhstp.sniffer.entity;
 
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.*;
 
@@ -25,10 +24,6 @@ public class Comments
     @JoinColumn
     private Sniffer cowner;
 
-    @Column
-    @OneToMany
-    private Set<Sniffer> liked_by;
- 
 
     public Comments() 
     {
@@ -61,7 +56,6 @@ public class Comments
     {
         this.id = id;
     }
-
     
     public String getComment() 
     {
@@ -82,15 +76,4 @@ public class Comments
     {
         this.date = new Date();
     }
-
-    public Set<Sniffer> getliked_by() 
-    {
-        return liked_by;
-    }
-
-    public void setliked_by(Sniffer liked_by) 
-    {
-        this.liked_by.add(liked_by);
-    }
-
 }

@@ -21,11 +21,12 @@ public class SnifferService
     CommentService commentService;
     
     @Autowired
-    public SnifferService(SnifferRepository snifferRepository, CommentRepository commentRepository, PubdateRepository pubdateRepository) 
+    public SnifferService(SnifferRepository snifferRepository, CommentRepository commentRepository, PubdateRepository pubdateRepository, CommentService commentService) 
     {
         this.snifferRepository = snifferRepository;
         this.pubdateRepository = pubdateRepository;
         this.commentRepository = commentRepository;
+        this.commentService = commentService;
     } 
 
     public Sniffer registerSniffer(String name)
@@ -121,9 +122,9 @@ public class SnifferService
                     
                 }
                 for(Pubdate pp : s.getShared())
-                    {
-                        timeline.add(pp);
-                    }
+                {
+                    timeline.add(pp);
+                }
             }
         }
     
