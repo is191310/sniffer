@@ -52,7 +52,7 @@ class SnifferApplicationTests {
 
 	@Test
 	void shouldReturnComment() throws Exception {
-		this.mockMvc.perform(get("/comment"))
+		this.mockMvc.perform(get("/comments"))
 				.andDo(print())
 				.andExpect(status().isOk());
 	}
