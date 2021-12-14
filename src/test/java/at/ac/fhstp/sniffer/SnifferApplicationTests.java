@@ -24,7 +24,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import at.ac.fhstp.sniffer.entity.Comments;
+import at.ac.fhstp.sniffer.entity.Pubdate;
 import at.ac.fhstp.sniffer.entity.Sniffer;
+import at.ac.fhstp.sniffer.service.CommentService;
+import at.ac.fhstp.sniffer.service.PubdateService;
 import at.ac.fhstp.sniffer.service.SnifferService;
 
 @SpringBootTest
@@ -33,6 +37,11 @@ class SnifferApplicationTests {
 
 	@MockBean
 	private SnifferService snifferService;
+	@MockBean
+	private CommentService commentService;
+	@MockBean
+	private PubdateService pubdateService;
+
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -82,4 +91,34 @@ class SnifferApplicationTests {
         String result = requestResult.getResponse().getContentAsString();
         assertEquals(result, "Sniffer is deleted!!");
     }
+
+
+	@Test
+	void testComment() throws Exception {
+		Set<Comments> comments = new HashSet<>();
+		Comments comment = new Comments();
+		comment.setId(1);
+		comment.setComment("Wilder Kommentar");
+		comments.add(comment);
+		Mockito.when(commentService.getAllComments()).thenReturn(comments);
+		mockMvc.perform(get("/comments"))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$", Matchers.hasSize(1)))
+				.andExpect(jsonPath("$[0].comment", Matchers.equalTo("Wilder Kommentar")));
+	}
+	
+	@Test
+	void testPubdates() throws Exception {
+		Set<Pubdate> pubdates = new HashSet<>();
+		Pubdate pubdate = new Pubdate();
+		pubdate.setId(1);
+		pubdate.setTitle("Titel");
+		pubdates.add(pubdate);
+		Mockito.when(pubdateService.getAllPubdates()).thenReturn(pubdates);
+		mockMvc.perform(get("/pubdate"))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$", Matchers.hasSize(1)))
+				.andExpect(jsonPath("$[0].title", Matchers.equalTo("Titel")));
+	}
+
 }
