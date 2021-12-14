@@ -8,6 +8,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import javax.persistence.*;
 
+
+
 @Entity
 @Table
 public class Pubdate implements Comparable<Pubdate>
@@ -27,13 +29,12 @@ public class Pubdate implements Comparable<Pubdate>
     @OneToMany
     private Set<Sniffer> liked_by;
 
-    @Column
-    @OneToMany
+    @OneToMany(orphanRemoval = true)
     private Set<Comments> comment;
 
     @OneToOne
     @JoinColumn
-    private Sniffer owner;
+    private Sniffer powner;
 
     @Column
     private Date date;
@@ -43,15 +44,20 @@ public class Pubdate implements Comparable<Pubdate>
 
     }
 
-    public Pubdate(String title, Sniffer owner) 
+    public Pubdate(String title, Sniffer powner) 
     {
         this.title = title;
-        this.owner = owner;
+        this.powner = powner;
         setDate();
+        this.metadata = genBase64();
+    }
+
+    private String genBase64()
+    {
         Random random = ThreadLocalRandom.current();
         byte[] randomBytes = new byte[16];
         random.nextBytes(randomBytes);
-        this.metadata = Base64.getUrlEncoder().encodeToString(randomBytes);
+        return Base64.getUrlEncoder().encodeToString(randomBytes);
     }
  
     @Override
@@ -108,11 +114,18 @@ public class Pubdate implements Comparable<Pubdate>
     {
         return liked_by;
 
-     }   
+    }   
+    
     public void setliked_by(Sniffer liked_by) 
     {
         this.liked_by.add(liked_by);
     }
+
+    public void removesetliked_by(Sniffer liked_by) 
+    {
+        this.liked_by.remove(liked_by);
+    }
+
 
     public Set<Comments> getComment() 
     {
@@ -124,14 +137,19 @@ public class Pubdate implements Comparable<Pubdate>
         this.comment.add(comment);
     }
 
-    public Sniffer getOwner() 
+    public void removeComment(Comments comment)
     {
-        return owner;
+        this.comment.remove(comment);
     }
 
-    public void setOwner(Sniffer owner)
+    public Sniffer getPowner() 
     {
-        this.owner = owner;
+        return powner;
+    }
+
+    public void setPowner(Sniffer powner)
+    {
+        this.powner = powner;
     }
 
     public Date getDate() 
@@ -151,5 +169,4 @@ public class Pubdate implements Comparable<Pubdate>
     public void setMetadata(String metadata) {
         this.metadata = metadata;
     }
-   
 }

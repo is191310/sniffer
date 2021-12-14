@@ -2,8 +2,6 @@ package at.ac.fhstp.sniffer.controllers;
 
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +19,8 @@ import at.ac.fhstp.sniffer.service.SnifferService;
 
 @RestController("SnifferController")
 @RequestMapping("/sniffer")
-public class SnifferController {
-    Logger logger = LoggerFactory.getLogger(SnifferController.class);
-
+public class SnifferController 
+{
     SnifferService snifferService;
 
     @Autowired

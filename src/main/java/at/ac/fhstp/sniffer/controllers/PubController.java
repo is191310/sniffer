@@ -56,6 +56,18 @@ public class PubController
         pubdateService.commentPub(comment, imgid, fromid);
     }
     
+    @PostMapping("/{fromid}/share/{imgid}")
+    public void getFollowed(@PathVariable("fromid")int fromid, @PathVariable("imgid")int imgid)
+    {
+        pubdateService.share(fromid, imgid);
+    }
+
+    @GetMapping("/{id}/share")
+    public Set<Pubdate> getShare(@PathVariable("id")int id)
+    {
+        return pubdateService.getShares(id);
+    }
+
     @GetMapping()
     public Set<Pubdate> getAll()
     {

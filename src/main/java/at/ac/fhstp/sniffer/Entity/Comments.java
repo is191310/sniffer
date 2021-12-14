@@ -1,9 +1,9 @@
 package at.ac.fhstp.sniffer.entity;
 
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.*;
+
 
 @Entity
 @Table
@@ -20,35 +20,31 @@ public class Comments
     @Column
     private Date date;
 
-    @OneToOne(orphanRemoval = true)
+    @OneToOne
     @JoinColumn
-    private Sniffer owner;
+    private Sniffer cowner;
 
-    @Column
-    @OneToMany(orphanRemoval = true)
-    private Set<Sniffer> liked_by;
- 
 
     public Comments() 
     {
 
     }
 
-    public Comments(String comment, Sniffer owner) 
+    public Comments(String comment, Sniffer cowner) 
     {
         this.comment = comment;
-        this.owner = owner;
+        this.cowner = cowner;
         setDate();
     }
 
-    public Sniffer getOwner() 
+    public Sniffer getCowner() 
     {
-        return owner;
+        return cowner;
     }
 
-    public void setOwner(Sniffer owner) 
+    public void setCowner(Sniffer cowner) 
     {
-        this.owner = owner;
+        this.cowner = cowner;
     }
 
     public int getId() 
@@ -60,7 +56,6 @@ public class Comments
     {
         this.id = id;
     }
-
     
     public String getComment() 
     {
@@ -81,16 +76,4 @@ public class Comments
     {
         this.date = new Date();
     }
-
-    public Set<Sniffer> getliked_by() 
-    {
-        return liked_by;
-
-    }
-
-    public void setliked_by(Sniffer liked_by) 
-    {
-        this.liked_by.add(liked_by);
-    }
-
 }

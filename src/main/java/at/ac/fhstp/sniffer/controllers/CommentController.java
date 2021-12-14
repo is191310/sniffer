@@ -14,7 +14,7 @@ import at.ac.fhstp.sniffer.entity.Comments;
 import at.ac.fhstp.sniffer.service.CommentService;
 
 @RestController("CommentController")
-@RequestMapping("/comment")
+@RequestMapping("/comments")
 public class CommentController 
 {
     CommentService commentService;
@@ -22,12 +22,6 @@ public class CommentController
     @Autowired
     public CommentController(CommentService commentService) {
         this.commentService = commentService;
-    }
-
-    @GetMapping("{fromid}/like/{cid}")
-    public void add(@PathVariable("cid") int cid, @PathVariable("fromid") int fromid) 
-    {
-        commentService.likeComment(cid, fromid);
     }
 
     @GetMapping("/{id}")
