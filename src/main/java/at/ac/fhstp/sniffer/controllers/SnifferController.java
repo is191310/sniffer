@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import at.ac.fhstp.sniffer.entity.Pubdate;
+import at.ac.fhstp.sniffer.entity.Pupdate;
 import at.ac.fhstp.sniffer.entity.Sniffer;
 import at.ac.fhstp.sniffer.service.SnifferService;
 
@@ -66,13 +66,13 @@ public class SnifferController
     }
 
     @GetMapping("/{id}/share")
-    public Set<Pubdate> getShare(@PathVariable("id")int id)
+    public Set<Pupdate> getShare(@PathVariable("id")int id)
     {
         return snifferService.getShares(id);
     }
 
     @GetMapping("/{id}/timeline")
-    public Set<Pubdate> timeline(@PathVariable("id") int id) 
+    public Set<Pupdate> timeline(@PathVariable("id") int id) 
     {
         return snifferService.getTimeline(id);
     }

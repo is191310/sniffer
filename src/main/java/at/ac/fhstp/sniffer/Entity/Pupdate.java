@@ -10,7 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Table
-public class Pubdate implements Comparable<Pubdate>
+public class Pupdate implements Comparable<Pupdate>
 {
     @Id
     @Column
@@ -29,7 +29,7 @@ public class Pubdate implements Comparable<Pubdate>
     @ManyToMany
     private Set<Sniffer> liked_by;
 
-    @OneToMany(mappedBy = "pub", orphanRemoval = true)
+    @OneToMany(mappedBy = "pup", orphanRemoval = true)
     private Set<Comments> comment;
 
     @ManyToOne
@@ -41,9 +41,9 @@ public class Pubdate implements Comparable<Pubdate>
     @ManyToMany
     private Set<Sniffer> shared_by;
 
-    public Pubdate(){}
+    public Pupdate(){}
 
-    public Pubdate(String title, Sniffer powner) 
+    public Pupdate(String title, Sniffer powner) 
     {
         this.title = title;
         this.powner = powner;
@@ -175,14 +175,14 @@ public class Pubdate implements Comparable<Pubdate>
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Pubdate other = (Pubdate) obj;
+        Pupdate other = (Pupdate) obj;
         if (id != other.id)
             return false;
         return true;
     }
 
     @Override
-    public int compareTo(Pubdate p)
+    public int compareTo(Pupdate p)
     {
         return p.getDate().compareTo(this.date);
     }

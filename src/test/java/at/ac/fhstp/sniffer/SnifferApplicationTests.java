@@ -25,10 +25,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import at.ac.fhstp.sniffer.entity.Comments;
-import at.ac.fhstp.sniffer.entity.Pubdate;
+import at.ac.fhstp.sniffer.entity.Pupdate;
 import at.ac.fhstp.sniffer.entity.Sniffer;
 import at.ac.fhstp.sniffer.service.CommentService;
-import at.ac.fhstp.sniffer.service.PubdateService;
+import at.ac.fhstp.sniffer.service.PupdateService;
 import at.ac.fhstp.sniffer.service.SnifferService;
 
 @SpringBootTest
@@ -40,7 +40,7 @@ class SnifferApplicationTests {
 	@MockBean
 	private CommentService commentService;
 	@MockBean
-	private PubdateService pubdateService;
+	private PupdateService pupdateService;
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -53,8 +53,8 @@ class SnifferApplicationTests {
 	}
 
 	@Test
-	void shouldReturnPubdate() throws Exception {
-		this.mockMvc.perform(get("/pubdate"))
+	void shouldReturnPupdate() throws Exception {
+		this.mockMvc.perform(get("/pupdate"))
 				.andDo(print())
 				.andExpect(status().isOk());
 	}
@@ -97,8 +97,8 @@ class SnifferApplicationTests {
 	void testComment() throws Exception {
 		Set<Comments> comments = new HashSet<>();
 		Comments comment = new Comments();
-		Pubdate pub = new Pubdate();
-		comment.setPub(pub);
+		Pupdate pup = new Pupdate();
+		comment.setPup(pup);
 		comment.setId(1);
 		comment.setText("Wilder Kommentar");
 		comments.add(comment);
@@ -110,14 +110,14 @@ class SnifferApplicationTests {
 	}
 	
 	@Test
-	void testPubdates() throws Exception {
-		Set<Pubdate> pubdates = new HashSet<>();
-		Pubdate pubdate = new Pubdate();
-		pubdate.setId(1);
-		pubdate.setTitle("Titel");
-		pubdates.add(pubdate);
-		Mockito.when(pubdateService.getAllPubdates()).thenReturn(pubdates);
-		mockMvc.perform(get("/pubdate"))
+	void testPupdates() throws Exception {
+		Set<Pupdate> pupdates = new HashSet<>();
+		Pupdate pupdate = new Pupdate();
+		pupdate.setId(1);
+		pupdate.setTitle("Titel");
+		pupdates.add(pupdate);
+		Mockito.when(pupdateService.getAllPupdates()).thenReturn(pupdates);
+		mockMvc.perform(get("/pupdate"))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$", Matchers.hasSize(1)))
 				.andExpect(jsonPath("$[0].title", Matchers.equalTo("Titel")));

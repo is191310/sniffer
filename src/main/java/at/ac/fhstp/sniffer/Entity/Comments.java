@@ -20,7 +20,7 @@ public class Comments
     private Date date;
 
     @ManyToOne
-    private Pubdate pub;
+    private Pupdate pup;
 
     @ManyToOne
     private Sniffer cowner;
@@ -29,11 +29,11 @@ public class Comments
     {
     }
 
-    public Comments(String text, Sniffer cowner, Pubdate pub) 
+    public Comments(String text, Sniffer cowner, Pupdate pup) 
     {
         this.text = text;
         this.cowner = cowner;
-        this.pub = pub;
+        this.pup = pup;
         setDate();
     }
 
@@ -77,13 +77,13 @@ public class Comments
         this.date = new Date();
     }
 
-    public int getPub()
+    public int getPup()
     {
-        return this.pub.getId();
+        return this.pup.getId();
     }
 
-    public void setPub(Pubdate pub)
+    public void setPup(Pupdate pup)
     {
-        this.pub = pub;
+        this.pup = pup;
     }
 }

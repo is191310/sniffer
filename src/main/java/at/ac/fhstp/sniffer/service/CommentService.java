@@ -15,17 +15,17 @@ public class CommentService
 {
     CommentRepository commentRepository;
     SnifferRepository snifferRepository;
-    PubdateRepository pubdateRepository;
+    PupdateRepository pupdateRepository;
     
     @Autowired
-    public CommentService(CommentRepository commentRepository, SnifferRepository snifferRepository,  PubdateRepository pubdateRepository) 
+    public CommentService(CommentRepository commentRepository, SnifferRepository snifferRepository,  PupdateRepository pupdateRepository) 
     {
         this.commentRepository = commentRepository;
         this.snifferRepository = snifferRepository;
-        this.pubdateRepository = pubdateRepository;
+        this.pupdateRepository = pupdateRepository;
     }
 
-    public Comments creatComment(String comment, int fromid, Pubdate pub) 
+    public Comments creatComment(String comment, int fromid, Pupdate pub) 
     {
         if(!snifferRepository.existsById(fromid))
         {

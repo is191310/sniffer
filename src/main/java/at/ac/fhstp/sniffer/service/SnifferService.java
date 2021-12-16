@@ -16,15 +16,15 @@ import at.ac.fhstp.sniffer.repository.*;
 public class SnifferService 
 {
     SnifferRepository snifferRepository;
-    PubdateRepository pubdateRepository;
+    PupdateRepository pupdateRepository;
     CommentRepository commentRepository;
     CommentService commentService;
     
     @Autowired
-    public SnifferService(SnifferRepository snifferRepository, CommentRepository commentRepository, PubdateRepository pubdateRepository, CommentService commentService) 
+    public SnifferService(SnifferRepository snifferRepository, CommentRepository commentRepository, PupdateRepository pupdateRepository, CommentService commentService) 
     {
         this.snifferRepository = snifferRepository;
-        this.pubdateRepository = pubdateRepository;
+        this.pupdateRepository = pupdateRepository;
         this.commentRepository = commentRepository;
         this.commentService = commentService;
     } 
@@ -103,7 +103,7 @@ public class SnifferService
         return snifferRepository.findById(id).get().getfollowed();
     }
 
-    public Set<Pubdate> getShares(int id)
+    public Set<Pupdate> getShares(int id)
     {
         if(!snifferRepository.existsById(id))
         {
@@ -114,9 +114,9 @@ public class SnifferService
         return snifferRepository.findById(id).get().getShared();
     }
  
-    public Set<Pubdate> getTimeline(int id)
+    public Set<Pupdate> getTimeline(int id)
     {
-        Set<Pubdate> timeline = new TreeSet<Pubdate>();
+        Set<Pupdate> timeline = new TreeSet<Pupdate>();
         if(!snifferRepository.existsById(id))
         {
             throw new SnifferExceptionsNotfound("Sniffer with ID '" + id + "' not found");
@@ -124,7 +124,7 @@ public class SnifferService
         
         Sniffer sniffer = snifferRepository.findById(id).get();
         
-        for(Pubdate p : pubdateRepository.findAll())
+        for(Pupdate p : pupdateRepository.findAll())
         {
             for(Sniffer s : sniffer.getfollowed())
             {
@@ -133,7 +133,7 @@ public class SnifferService
                     timeline.add(p);
                     
                 }
-                for(Pubdate pp : s.getShared())
+                for(Pupdate pp : s.getShared())
                 {
                     timeline.add(pp);
                 }
@@ -153,28 +153,28 @@ public class SnifferService
         
         Sniffer user = snifferRepository.findById(id).get();
         
-        for(Pubdate p : pubdateRepository.findAll())
+        for(Pupdate p : pupdateRepository.findAll())
         {
             for (Sniffer s : p.getliked_by())
             {
                 if(s.equals(user))
                 {
                     p.removeliked_by(user);
-                    pubdateRepository.save(p);
+                    pupdateRepository.save(p);
                 }
             }
         }
 
-        for(Pubdate p : pubdateRepository.findAll())
+        for(Pupdate p : pupdateRepository.findAll())
         {
             for(Sniffer s : snifferRepository.findAll())
             {
-                for(Pubdate pp : s.getShared())
+                for(Pupdate pp : s.getShared())
                 {
                     if(p.equals(pp))
                     {
                         s.removeShared(p);
-                        pubdateRepository.save(p);
+                        pupdateRepository.save(p);
                     }
                 }
             }

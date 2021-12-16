@@ -10,68 +10,68 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import at.ac.fhstp.sniffer.entity.Pubdate;
-import at.ac.fhstp.sniffer.service.PubdateService;
+import at.ac.fhstp.sniffer.entity.Pupdate;
+import at.ac.fhstp.sniffer.service.PupdateService;
 
 
 @RestController("PubController")
-@RequestMapping("/pubdate")
-public class PubController 
+@RequestMapping("/pupdate")
+public class PupController 
 {
-    PubdateService pubdateService;
+    PupdateService pupdateService;
     
     @Autowired
-    public PubController(PubdateService pubdateService) 
+    public PupController(PupdateService pupdateService) 
     {
-        this.pubdateService = pubdateService;
+        this.pupdateService = pupdateService;
     }
 
     @PostMapping("{id}/add/{title}")
-    public Pubdate add(@PathVariable String title, @PathVariable int id)
+    public Pupdate add(@PathVariable String title, @PathVariable int id)
     {
-        return pubdateService.createPub(title, id);
+        return pupdateService.createPup(title, id);
     }
 
     @DeleteMapping("{id}")
     public String del(@PathVariable int id)
     {
-        return pubdateService.delete(id);
+        return pupdateService.delete(id);
     }
 
     @GetMapping("{id}")
-    public Pubdate getId(@PathVariable int id)
+    public Pupdate getId(@PathVariable int id)
     {
-        return pubdateService.getPub(id);
+        return pupdateService.getPup(id);
     }
 
     @PostMapping("{fromid}/like/{imgid}")
     public String like(@PathVariable int imgid, @PathVariable int fromid)
     {
-        return pubdateService.likePub(imgid, fromid);
+        return pupdateService.likePup(imgid, fromid);
     }
 
     @PostMapping("{fromid}/unlike/{imgid}")
     public String unlike(@PathVariable int imgid, @PathVariable int fromid)
     {
-        return pubdateService.unlikePub(imgid, fromid);
+        return pupdateService.unlikePup(imgid, fromid);
     }
 
     @PostMapping("{fromid}/comment/{imgid}/{comment}")
     public String comment(@PathVariable String comment, @PathVariable int imgid, @PathVariable int fromid)
     {
         
-        return pubdateService.commentPub(comment, imgid, fromid);
+        return pupdateService.commentPup(comment, imgid, fromid);
     }
     
     @PostMapping("/{fromid}/share/{imgid}")
     public String getFollowed(@PathVariable("fromid")int fromid, @PathVariable("imgid")int imgid)
     {
-        return pubdateService.share(fromid, imgid);
+        return pupdateService.share(fromid, imgid);
     }
 
     @GetMapping()
-    public Set<Pubdate> getAll()
+    public Set<Pupdate> getAll()
     {
-        return pubdateService.getAllPubdates();
+        return pupdateService.getAllPupdates();
     }
 }

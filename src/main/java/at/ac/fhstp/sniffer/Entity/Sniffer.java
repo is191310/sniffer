@@ -21,7 +21,7 @@ public class Sniffer
 
     @JsonIgnore
     @OneToMany(orphanRemoval = true, mappedBy = "powner")
-    private Set<Pubdate> pubs;
+    private Set<Pupdate> pups;
 
     @JsonIgnore
     @OneToMany(orphanRemoval = true, mappedBy = "cowner")
@@ -29,7 +29,7 @@ public class Sniffer
 
     @JsonIgnore
     @ManyToMany
-    private Set<Pubdate> liked;
+    private Set<Pupdate> liked;
 
     @JsonIgnore
     @ManyToMany
@@ -41,7 +41,7 @@ public class Sniffer
 
     @JsonIgnore
     @ManyToMany
-    private Set<Pubdate> shared;
+    private Set<Pupdate> shared;
 
     public Sniffer(){}
     
@@ -124,36 +124,33 @@ public class Sniffer
         this.followed.remove(f);
     }
 
-    public Set<Pubdate> getShared() 
+    public Set<Pupdate> getShared() 
     {
         return shared;
     }
 
-    public void setShared(Pubdate shared)
+    public void setShared(Pupdate shared)
     {
         this.shared.add(shared);
     }
 
-    public void removeShared(Pubdate pub)
+    public void removeShared(Pupdate pup)
     {
-        this.shared.remove(pub);
+        this.shared.remove(pup);
     }
 
-    public Set<Pubdate> getLiked() 
+    public Set<Pupdate> getLiked() 
     {
         return liked;
     }
 
-    public void setLiked(Pubdate like) 
+    public void setLiked(Pupdate like) 
     {
         this.liked.add(like);
     }
 
-    public void removeLike(Pubdate unlike)
+    public void removeLike(Pupdate unlike)
     {
         this.liked.remove(unlike);
-    }
-
-    
-
+    }   
 }

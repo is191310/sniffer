@@ -11,27 +11,27 @@ import at.ac.fhstp.sniffer.exceptions.*;
 import at.ac.fhstp.sniffer.repository.*;
 
 @Service
-public class PubdateService 
+public class PupdateService 
 {
-    PubdateRepository pubdateRepository;
+    PupdateRepository pupdateRepository;
     SnifferRepository snifferRepository;
     CommentRepository commentRepository;
     CommentService commentService;
 
     @Autowired
-    public PubdateService(PubdateRepository pubdateRepository, SnifferRepository snifferRepository, CommentRepository commentRepository, CommentService commentService) 
+    public PupdateService(PupdateRepository pupdateRepository, SnifferRepository snifferRepository, CommentRepository commentRepository, CommentService commentService) 
     {
-        this.pubdateRepository = pubdateRepository;
+        this.pupdateRepository = pupdateRepository;
         this.snifferRepository = snifferRepository;
         this.commentRepository = commentRepository;
         this.commentService = commentService;
     }
 
-    public Pubdate createPub(String title, int id)
+    public Pupdate createPup(String title, int id)
     {
         if(title.isBlank())
         {
-            throw new SnifferExceptions("Cannot create Pubdate, title is blank");
+            throw new SnifferExceptions("Cannot create Pupdate, title is blank");
         }
         if(!snifferRepository.existsById(id))
         {
@@ -40,57 +40,57 @@ public class PubdateService
         
         Sniffer owner = snifferRepository.findById(id).get();
         
-        return pubdateRepository.save(new Pubdate(title, owner));
+        return pupdateRepository.save(new Pupdate(title, owner));
 
     }
 
-    public String likePub(int imgid, int fromid)
+    public String likePup(int imgid, int fromid)
     {
         if(!snifferRepository.existsById(fromid))
         {
             throw new SnifferExceptionsNotfound("Sniffer with ID '" + fromid + "' not found");
         }
         
-        if(!pubdateRepository.existsById(imgid))
+        if(!pupdateRepository.existsById(imgid))
         {
-            throw new SnifferExceptionsNotfound("Pubdate with ID '" + imgid + "' not found");
+            throw new SnifferExceptionsNotfound("Pupdate with ID '" + imgid + "' not found");
         }
 
         Sniffer from = snifferRepository.findById(fromid).get();
-        Pubdate likeimg = pubdateRepository.findById(imgid).get();
+        Pupdate likeimg = pupdateRepository.findById(imgid).get();
         
         likeimg.setliked_by(from);
         from.setLiked(likeimg);
         snifferRepository.save(from);
-        pubdateRepository.save(likeimg);
+        pupdateRepository.save(likeimg);
         return "You have liked " + likeimg.getTitle();
     }
 
-    public String unlikePub(int imgid, int fromid)
+    public String unlikePup(int imgid, int fromid)
     {
         if(!snifferRepository.existsById(fromid))
         {
             throw new SnifferExceptionsNotfound("Sniffer with ID '" + fromid + "' not found");
         }
         
-        if(!pubdateRepository.existsById(imgid))
+        if(!pupdateRepository.existsById(imgid))
         {
-            throw new SnifferExceptionsNotfound("Pubdate with ID '" + imgid + "' not found");
+            throw new SnifferExceptionsNotfound("Pupdate with ID '" + imgid + "' not found");
         }
 
         Sniffer from = snifferRepository.findById(fromid).get();
-        Pubdate likeimg = pubdateRepository.findById(imgid).get();
+        Pupdate likeimg = pupdateRepository.findById(imgid).get();
         
         likeimg.removeliked_by(from);
-        pubdateRepository.save(likeimg);
+        pupdateRepository.save(likeimg);
         return "You have liked " + likeimg.getTitle();
     }
 
-    public String commentPub(String com, int imgid, int fromid)
+    public String commentPup(String com, int imgid, int fromid)
     {
-        if(!pubdateRepository.existsById(imgid))
+        if(!pupdateRepository.existsById(imgid))
         {
-            throw new SnifferExceptionsNotfound("Pubdate with ID '" + imgid + "' not found");
+            throw new SnifferExceptionsNotfound("Pupdate with ID '" + imgid + "' not found");
         }
         if(!snifferRepository.existsById(fromid))
         {
@@ -101,11 +101,11 @@ public class PubdateService
             throw new SnifferExceptions("Cannot create comment, comment is blank");
         }
         
-        Pubdate comimg = pubdateRepository.findById(imgid).get();
+        Pupdate comimg = pupdateRepository.findById(imgid).get();
         Comments co = commentService.creatComment(com, fromid, comimg);
         
         comimg.setComment(co);
-        pubdateRepository.save(comimg);
+        pupdateRepository.save(comimg);
         return "You commented " + comimg.getTitle();
 
     }
@@ -118,62 +118,62 @@ public class PubdateService
             
             
         }    
-        if(!pubdateRepository.existsById(imgid))
+        if(!pupdateRepository.existsById(imgid))
         {
-            throw new SnifferExceptionsNotfound("Pubdate with ID '" + imgid + "' not found");
+            throw new SnifferExceptionsNotfound("Pupdate with ID '" + imgid + "' not found");
         }
 
         Sniffer from = snifferRepository.findById(fromid).get();      
-        Pubdate pub = pubdateRepository.findById(imgid).get();
+        Pupdate pup = pupdateRepository.findById(imgid).get();
         
-        from.setShared(pub);
-        pub.setShared_by(from);
+        from.setShared(pup);
+        pup.setShared_by(from);
         snifferRepository.save(from);
-        pubdateRepository.save(pub);
+        pupdateRepository.save(pup);
 
-        return "You have shared " + pub.getTitle();
+        return "You have shared " + pup.getTitle();
     }
 
-    public Set<Pubdate> getAllPubdates() 
+    public Set<Pupdate> getAllPupdates() 
     {
-        Set<Pubdate> pubdateList = new HashSet<Pubdate>();
-        pubdateRepository.findAll().forEach(a -> pubdateList.add(a));
-        return pubdateList;
+        Set<Pupdate> pupdateList = new HashSet<Pupdate>();
+        pupdateRepository.findAll().forEach(a -> pupdateList.add(a));
+        return pupdateList;
     }
 
-    public Pubdate getPub(int id)
+    public Pupdate getPup(int id)
     {
-        if(!pubdateRepository.existsById(id))
+        if(!pupdateRepository.existsById(id))
         {
-            throw new SnifferExceptionsNotfound("Pubdate with ID '" + id + "' not found");
+            throw new SnifferExceptionsNotfound("Pupdate with ID '" + id + "' not found");
             
         }
         
-        return pubdateRepository.findById(id).get();
+        return pupdateRepository.findById(id).get();
     }
 
     public String delete(int id) 
     {
-        if(!pubdateRepository.existsById(id))
+        if(!pupdateRepository.existsById(id))
         {
-            throw new SnifferExceptionsNotfound("Pubdate with ID '" + id + "' not found");
+            throw new SnifferExceptionsNotfound("Pupdate with ID '" + id + "' not found");
         }
         
-        Pubdate pub = pubdateRepository.findById(id).get();
+        Pupdate pup = pupdateRepository.findById(id).get();
         
         for(Sniffer s : snifferRepository.findAll())
         {
-            for(Pubdate pp : s.getShared())
+            for(Pupdate pp : s.getShared())
             {
-                if(pub.equals(pp))
+                if(pup.equals(pp))
                 {
-                    s.removeShared(pub);
+                    s.removeShared(pup);
                 }
             }
         }
                 
-        pubdateRepository.deleteById(id);
+        pupdateRepository.deleteById(id);
 
-        return "Pubdate deleted";
+        return "Pupdate deleted";
     }
 }
