@@ -26,7 +26,7 @@ public class PupController
         this.pupdateService = pupdateService;
     }
 
-    @PostMapping("{id}/add/{title}")
+    @PostMapping("{id}/create/{title}")
     public Pupdate add(@PathVariable String title, @PathVariable int id)
     {
         return pupdateService.createPup(title, id);

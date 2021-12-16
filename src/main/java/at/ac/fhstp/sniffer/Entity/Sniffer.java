@@ -29,10 +29,6 @@ public class Sniffer
 
     @JsonIgnore
     @ManyToMany
-    private Set<Pupdate> liked;
-
-    @JsonIgnore
-    @ManyToMany
     private Set<Sniffer> followed_by;
 
     @JsonIgnore
@@ -138,19 +134,4 @@ public class Sniffer
     {
         this.shared.remove(pup);
     }
-
-    public Set<Pupdate> getLiked() 
-    {
-        return liked;
-    }
-
-    public void setLiked(Pupdate like) 
-    {
-        this.liked.add(like);
-    }
-
-    public void removeLike(Pupdate unlike)
-    {
-        this.liked.remove(unlike);
-    }   
 }

@@ -8,6 +8,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table
 public class Pupdate implements Comparable<Pupdate>
@@ -26,7 +28,7 @@ public class Pupdate implements Comparable<Pupdate>
     @Column 
     int likes;
    
-    @ManyToMany
+    @OneToMany
     private Set<Sniffer> liked_by;
 
     @OneToMany(mappedBy = "pup", orphanRemoval = true)
@@ -38,6 +40,7 @@ public class Pupdate implements Comparable<Pupdate>
     @Column
     private Date date;
 
+    @JsonIgnore
     @ManyToMany
     private Set<Sniffer> shared_by;
 

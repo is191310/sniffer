@@ -60,8 +60,6 @@ public class PupdateService
         Pupdate likeimg = pupdateRepository.findById(imgid).get();
         
         likeimg.setliked_by(from);
-        from.setLiked(likeimg);
-        snifferRepository.save(from);
         pupdateRepository.save(likeimg);
         return "You have liked " + likeimg.getTitle();
     }

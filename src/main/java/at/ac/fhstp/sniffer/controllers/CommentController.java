@@ -37,7 +37,7 @@ public class CommentController
         return commentService.delete(id);
     }
 
-    @GetMapping()
+    @GetMapping
     public Set<Comments> getAll()
     {
         return commentService.getAllComments();
