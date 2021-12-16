@@ -44,7 +44,7 @@ public class PubdateService
 
     }
 
-    public void likePub(int imgid, int fromid)
+    public String likePub(int imgid, int fromid)
     {
         if(!snifferRepository.existsById(fromid))
         {
@@ -61,9 +61,32 @@ public class PubdateService
         
         likeimg.setliked_by(from);
         pubdateRepository.save(likeimg);
+        return "You have liked " + likeimg.getTitle();
     }
 
-    public void commentPub(String com, int imgid, int fromid)
+    public String unlikePub(int imgid, int fromid)
+    {
+        if(!snifferRepository.existsById(fromid))
+        {
+            throw new SnifferExceptionsNotfound("Sniffer with ID '" + fromid + "' not found");
+        }
+        
+        if(!pubdateRepository.existsById(imgid))
+        {
+            throw new SnifferExceptionsNotfound("Pubdate with ID '" + imgid + "' not found");
+        }
+
+        Sniffer from = snifferRepository.findById(fromid).get();
+        Pubdate likeimg = pubdateRepository.findById(imgid).get();
+        
+        likeimg.removeliked_by(from);
+        pubdateRepository.save(likeimg);
+        return "You have liked " + likeimg.getTitle();
+    }
+
+
+
+    public String commentPub(String com, int imgid, int fromid)
     {
         if(!pubdateRepository.existsById(imgid))
         {
@@ -79,14 +102,15 @@ public class PubdateService
         }
         
         Pubdate comimg = pubdateRepository.findById(imgid).get();
-        Comments co = commentService.creatComment(com, fromid);
+        Comments co = commentService.creatComment(com, fromid, comimg);
         
         comimg.setComment(co);
         pubdateRepository.save(comimg);
+        return "You commented " + comimg.getTitle();
 
     }
 
-    public void share(int fromid, int imgid)
+    public String share(int fromid, int imgid)
     {
         if(!snifferRepository.existsById(fromid))
         {
@@ -104,17 +128,8 @@ public class PubdateService
         
         from.setShared(pub);
         snifferRepository.save(from);
-    }
 
-    public Set<Pubdate> getShares(int id)
-    {
-        if(!snifferRepository.existsById(id))
-        {
-            throw new SnifferExceptionsNotfound("Sniffer with ID '" + id + "' not found");
-            
-        }
-        
-        return snifferRepository.findById(id).get().getShared();
+        return "You have shared " + pub.getTitle();
     }
 
     public Set<Pubdate> getAllPubdates() 
@@ -131,11 +146,11 @@ public class PubdateService
             throw new SnifferExceptionsNotfound("Pubdate with ID '" + id + "' not found");
             
         }
-
+        
         return pubdateRepository.findById(id).get();
     }
 
-    public void delete(int id) 
+    public String delete(int id) 
     {
         if(!pubdateRepository.existsById(id))
         {
@@ -143,5 +158,7 @@ public class PubdateService
         }
         
         pubdateRepository.deleteById(id);
+
+        return "Pubdate deleted";
     }
 }
