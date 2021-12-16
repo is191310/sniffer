@@ -8,8 +8,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table
 public class Pupdate implements Comparable<Pupdate>
@@ -39,10 +37,6 @@ public class Pupdate implements Comparable<Pupdate>
 
     @Column
     private Date date;
-
-    @JsonIgnore
-    @ManyToMany
-    private Set<Sniffer> shared_by;
 
     public Pupdate(){}
 
@@ -138,16 +132,6 @@ public class Pupdate implements Comparable<Pupdate>
 
     public void setMetadata(String metadata) {
         this.metadata = metadata;
-    }
-
-    public Set<Sniffer> getShared_by() 
-    {
-        return shared_by;
-    }
-
-    public void setShared_by(Sniffer shared) 
-    {
-        this.shared_by.add(shared);
     }
 
     private String genBase64()

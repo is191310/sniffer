@@ -126,10 +126,7 @@ public class PupdateService
         Pupdate pup = pupdateRepository.findById(imgid).get();
         
         from.setShared(pup);
-        pup.setShared_by(from);
-
         snifferRepository.save(from);
-        pupdateRepository.save(pup);
 
         return "You have shared " + pup.getTitle();
     }

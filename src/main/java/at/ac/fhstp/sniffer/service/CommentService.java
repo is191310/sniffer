@@ -44,7 +44,7 @@ public class CommentService
     public Set<Comments> getAllComments() 
     {
         Set<Comments> commentList = new HashSet<Comments>();
-        commentRepository.findAll().forEach(a -> commentList.add(a));
+        commentRepository.findAll().forEach(c -> commentList.add(c));
         return commentList;
     }
 
