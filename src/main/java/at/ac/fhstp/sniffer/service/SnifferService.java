@@ -58,7 +58,7 @@ public class SnifferService
         return snifferRepository.findById(id).get();
     }
 
-    public void follow(int fromid, int fid)
+    public String follow(int fromid, int fid)
     {
         if(!snifferRepository.existsById(fromid))
         {
@@ -79,6 +79,7 @@ public class SnifferService
         from.setfollowed(follow);
         snifferRepository.save(from);
         snifferRepository.save(follow);
+        return from.getName() + " follows " + follow.getName();
     }
 
     public Set<Sniffer> getFollower(int id)
@@ -100,6 +101,17 @@ public class SnifferService
         }
         
         return snifferRepository.findById(id).get().getfollowed();
+    }
+
+    public Set<Pubdate> getShares(int id)
+    {
+        if(!snifferRepository.existsById(id))
+        {
+            throw new SnifferExceptionsNotfound("Sniffer with ID '" + id + "' not found");
+            
+        }
+        
+        return snifferRepository.findById(id).get().getShared();
     }
  
     public Set<Pubdate> getTimeline(int id)
@@ -147,7 +159,7 @@ public class SnifferService
             {
                 if(s.equals(user))
                 {
-                    p.removesetliked_by(user);
+                    p.removeliked_by(user);
                     pubdateRepository.save(p);
                 }
             }
@@ -194,8 +206,10 @@ public class SnifferService
             s.removeFollowed(user);
         }
 
+        //user.removeShared();
+
         snifferRepository.deleteById(id);
 
-        return "User deleted";
+        return "Sniffer deleted";
     }
 }

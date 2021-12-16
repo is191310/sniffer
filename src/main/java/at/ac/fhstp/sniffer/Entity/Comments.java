@@ -20,16 +20,20 @@ public class Comments
     @Column
     private Date date;
 
+    @ManyToOne
+    private Pubdate pub;
+
     @OneToOne
     @JoinColumn
     private Sniffer cowner;
 
     public Comments(){}
 
-    public Comments(String comment, Sniffer cowner) 
+    public Comments(String comment, Sniffer cowner, Pubdate pub) 
     {
         this.comment = comment;
         this.cowner = cowner;
+        this.pub = pub;
         setDate();
     }
 
@@ -71,5 +75,15 @@ public class Comments
     public void setDate() 
     {
         this.date = new Date();
+    }
+
+    public int getPub()
+    {
+        return this.pub.getId();
+    }
+
+    public void setPub(Pubdate pub)
+    {
+        this.pub = pub;
     }
 }

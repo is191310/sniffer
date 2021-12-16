@@ -25,7 +25,7 @@ public class CommentService
         this.pubdateRepository = pubdateRepository;
     }
 
-    public Comments creatComment(String comment, int fromid) 
+    public Comments creatComment(String comment, int fromid, Pubdate pub) 
     {
         if(!snifferRepository.existsById(fromid))
         {
@@ -38,7 +38,7 @@ public class CommentService
 
         Sniffer c = snifferRepository.findById(fromid).get();
         
-        return commentRepository.save(new Comments(comment, c));
+        return commentRepository.save(new Comments(comment, c, pub));
     }
 
     public Set<Comments> getAllComments() 
@@ -58,7 +58,7 @@ public class CommentService
         return commentRepository.findById(id).get();     
     }
 
-    public void delete(int id) 
+    public String delete(int id) 
     {
         if(!(commentRepository.existsById(id)))
         {
@@ -78,5 +78,7 @@ public class CommentService
         }
 
         commentRepository.deleteById(id);
+
+        return "Comment deleted";
     }
 }

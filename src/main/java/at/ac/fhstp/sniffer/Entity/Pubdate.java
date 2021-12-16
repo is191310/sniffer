@@ -24,8 +24,10 @@ public class Pubdate implements Comparable<Pubdate>
 
     @Column
     private String metadata;
+
+    @Column 
+    int likes;
    
-    @Column
     @OneToMany
     private Set<Sniffer> liked_by;
 
@@ -47,44 +49,6 @@ public class Pubdate implements Comparable<Pubdate>
         this.powner = powner;
         setDate();
         this.metadata = genBase64();
-    }
-
-    private String genBase64()
-    {
-        Random random = ThreadLocalRandom.current();
-        byte[] randomBytes = new byte[16];
-        random.nextBytes(randomBytes);
-        return Base64.getUrlEncoder().encodeToString(randomBytes);
-    }
- 
-    @Override
-    public int hashCode() 
-    {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + id;
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Pubdate other = (Pubdate) obj;
-        if (id != other.id)
-            return false;
-        return true;
-    }
-
-    @Override
-    public int compareTo(Pubdate p)
-    {
-        return p.getDate().compareTo(this.date);
     }
 
     public int getId() 
@@ -118,7 +82,7 @@ public class Pubdate implements Comparable<Pubdate>
         this.liked_by.add(liked_by);
     }
 
-    public void removesetliked_by(Sniffer liked_by) 
+    public void removeliked_by(Sniffer liked_by) 
     {
         this.liked_by.remove(liked_by);
     }
@@ -158,6 +122,14 @@ public class Pubdate implements Comparable<Pubdate>
     {
         this.date = new Date();
     }
+    
+    public int getLikes() {
+        if(this.liked_by!=null)
+        {
+            return this.liked_by.size();
+        }
+        return 0;
+    }
 
     public String getMetadata() {
         return metadata;
@@ -165,5 +137,43 @@ public class Pubdate implements Comparable<Pubdate>
 
     public void setMetadata(String metadata) {
         this.metadata = metadata;
+    }
+
+    private String genBase64()
+    {
+        Random random = ThreadLocalRandom.current();
+        byte[] randomBytes = new byte[16];
+        random.nextBytes(randomBytes);
+        return Base64.getUrlEncoder().encodeToString(randomBytes);
+    }
+ 
+    @Override
+    public int hashCode() 
+    {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + id;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Pubdate other = (Pubdate) obj;
+        if (id != other.id)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int compareTo(Pubdate p)
+    {
+        return p.getDate().compareTo(this.date);
     }
 }

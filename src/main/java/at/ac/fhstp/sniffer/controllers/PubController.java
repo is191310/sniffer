@@ -33,9 +33,9 @@ public class PubController
     }
 
     @DeleteMapping("{id}")
-    public void del(@PathVariable int id)
+    public String del(@PathVariable int id)
     {
-        pubdateService.delete(id);
+        return pubdateService.delete(id);
     }
 
     @GetMapping("{id}")
@@ -45,28 +45,28 @@ public class PubController
     }
 
     @PostMapping("{fromid}/like/{imgid}")
-    public void add(@PathVariable int imgid, @PathVariable int fromid)
+    public String like(@PathVariable int imgid, @PathVariable int fromid)
     {
-        pubdateService.likePub(imgid, fromid);
+        return pubdateService.likePub(imgid, fromid);
+    }
+
+    @PostMapping("{fromid}/unlike/{imgid}")
+    public String unlike(@PathVariable int imgid, @PathVariable int fromid)
+    {
+        return pubdateService.unlikePub(imgid, fromid);
     }
 
     @PostMapping("{fromid}/comment/{imgid}/{comment}")
-    public void comment(@PathVariable String comment, @PathVariable int imgid, @PathVariable int fromid)
+    public String comment(@PathVariable String comment, @PathVariable int imgid, @PathVariable int fromid)
     {
         
-        pubdateService.commentPub(comment, imgid, fromid);
+        return pubdateService.commentPub(comment, imgid, fromid);
     }
     
     @PostMapping("/{fromid}/share/{imgid}")
-    public void getFollowed(@PathVariable("fromid")int fromid, @PathVariable("imgid")int imgid)
+    public String getFollowed(@PathVariable("fromid")int fromid, @PathVariable("imgid")int imgid)
     {
-        pubdateService.share(fromid, imgid);
-    }
-
-    @GetMapping("/{id}/share")
-    public Set<Pubdate> getShare(@PathVariable("id")int id)
-    {
-        return pubdateService.getShares(id);
+        return pubdateService.share(fromid, imgid);
     }
 
     @GetMapping()

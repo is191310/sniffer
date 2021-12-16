@@ -32,9 +32,9 @@ public class CommentController
     }
 
     @DeleteMapping("/{id}")
-    public void delComment(@PathVariable("id")int id)
+    public String delComment(@PathVariable("id")int id)
     {
-        commentService.delete(id);
+        return commentService.delete(id);
     }
 
     @GetMapping()
