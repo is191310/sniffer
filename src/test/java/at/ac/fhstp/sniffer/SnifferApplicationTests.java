@@ -1,6 +1,5 @@
 package at.ac.fhstp.sniffer;
 
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -9,7 +8,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import java.util.HashSet;
 import java.util.Set;
-
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -46,28 +44,32 @@ class SnifferApplicationTests {
 	private MockMvc mockMvc;
 
 	@Test
-	void shouldReturnSniffers() throws Exception {
+	void shouldReturnSniffers() throws Exception 
+	{
 		this.mockMvc.perform(get("/sniffer"))
 				.andDo(print())
 				.andExpect(status().isOk());
 	}
 
 	@Test
-	void shouldReturnPupdate() throws Exception {
+	void shouldReturnPupdate() throws Exception 
+	{
 		this.mockMvc.perform(get("/pupdate"))
 				.andDo(print())
 				.andExpect(status().isOk());
 	}
 
 	@Test
-	void shouldReturnComment() throws Exception {
+	void shouldReturnComment() throws Exception 
+	{
 		this.mockMvc.perform(get("/comments"))
 				.andDo(print())
 				.andExpect(status().isOk());
 	}
 
 	@Test
-	void testGetExample() throws Exception {
+	void testGetExample() throws Exception 
+	{
 		Set<Sniffer> sniffers = new HashSet<>();
 		Sniffer sniffer = new Sniffer();
 		sniffer.setId(1);
@@ -79,12 +81,16 @@ class SnifferApplicationTests {
 				.andExpect(jsonPath("$", Matchers.hasSize(1)))
 				.andExpect(jsonPath("$[0].name", Matchers.equalTo("Test")));
 	}
+
 	@Test
-	public void main() {
+	public void main() 
+	{
 		SnifferApplication.main(new String [] {});
 	}
+
 	@Test
-    public void testDeleteExample() throws Exception {
+    public void testDeleteExample() throws Exception 
+	{
         Mockito.when(snifferService.deleteSniffer(ArgumentMatchers.anyInt())).thenReturn("Sniffer is deleted!!");
         MvcResult requestResult = mockMvc.perform(delete("/sniffer/deleteMapping").param("sniffer-id", "1"))
                 .andExpect(status().isOk()).andExpect(status().isOk()).andReturn();
@@ -92,9 +98,9 @@ class SnifferApplicationTests {
         assertEquals(result, "Sniffer is deleted!!");
     }
 
-
 	@Test
-	void testComment() throws Exception {
+	void testComment() throws Exception 
+	{
 		Set<Comments> comments = new HashSet<>();
 		Comments comment = new Comments();
 		Pupdate pup = new Pupdate();
@@ -110,7 +116,8 @@ class SnifferApplicationTests {
 	}
 	
 	@Test
-	void testPupdates() throws Exception {
+	void testPupdates() throws Exception 
+	{
 		Set<Pupdate> pupdates = new HashSet<>();
 		Pupdate pupdate = new Pupdate();
 		pupdate.setId(1);
