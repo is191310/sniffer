@@ -64,18 +64,6 @@ public class CommentService
         {
             throw new SnifferExceptionsNotfound("Comment with ID '" + id + "' not found");
         }
-       
-        for(Pubdate p :  pubdateRepository.findAll())
-        {
-            for(Comments c : p.getComment())
-            {
-                if(c.equals(commentRepository.findById(id).get()))
-                {
-                        p.removeComment(c);
-                        pubdateRepository.save(p);
-                }
-            }
-        }
 
         commentRepository.deleteById(id);
 

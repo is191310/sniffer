@@ -15,7 +15,7 @@ public class Comments
     private int id;
 
     @Column
-    private String comment;
+    private String text;
 
     @Column
     private Date date;
@@ -23,15 +23,18 @@ public class Comments
     @ManyToOne
     private Pubdate pub;
 
-    @OneToOne
-    @JoinColumn
+    @ManyToOne
     private Sniffer cowner;
 
-    public Comments(){}
-
-    public Comments(String comment, Sniffer cowner, Pubdate pub) 
+    public Comments()
     {
-        this.comment = comment;
+        super();
+    }
+
+    public Comments(String text, Sniffer cowner, Pubdate pub) 
+    {
+        super();
+        this.text = text;
         this.cowner = cowner;
         this.pub = pub;
         setDate();
@@ -57,14 +60,14 @@ public class Comments
         this.id = id;
     }
     
-    public String getComment() 
+    public String getText() 
     {
-        return comment;
+        return text;
     }
      
-    public void setComment(String comment) 
+    public void setText(String text) 
     {
-        this.comment = comment;
+        this.text = text;
     }
      
     public Date getDate() 

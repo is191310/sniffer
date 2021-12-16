@@ -157,6 +157,19 @@ public class PubdateService
             throw new SnifferExceptionsNotfound("Pubdate with ID '" + id + "' not found");
         }
         
+        Pubdate pub = pubdateRepository.findById(id).get();
+        
+        for(Sniffer s : snifferRepository.findAll())
+        {
+            for(Pubdate pp : s.getShared())
+            {
+                if(pub.equals(pp))
+                {
+                    s.removeShared(pub);
+                }
+            }
+        }
+                
         pubdateRepository.deleteById(id);
 
         return "Pubdate deleted";

@@ -20,22 +20,26 @@ public class Sniffer
     private String name;
 
     @JsonIgnore
-    @Column
     @OneToMany(orphanRemoval = true, mappedBy = "powner")
     private Set<Pubdate> pubs;
 
     @JsonIgnore
-    @Column
+    @OneToMany(orphanRemoval = true, mappedBy = "cowner")
+    private Set<Comments> com;
+
+    @JsonIgnore
+    @ManyToMany
+    private Set<Pubdate> liked;
+
+    @JsonIgnore
     @ManyToMany
     private Set<Sniffer> followed_by;
 
     @JsonIgnore
-    @Column
     @ManyToMany
     private Set<Sniffer> followed;
 
     @JsonIgnore
-    @Column
     @ManyToMany
     private Set<Pubdate> shared;
 
@@ -128,6 +132,11 @@ public class Sniffer
     public void setShared(Pubdate shared)
     {
         this.shared.add(shared);
+    }
+
+    public void removeShared(Pubdate pub)
+    {
+        this.shared.remove(pub);
     }
 
 }
