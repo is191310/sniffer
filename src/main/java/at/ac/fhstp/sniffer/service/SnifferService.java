@@ -167,46 +167,31 @@ public class SnifferService
 
         for(Pubdate p : pubdateRepository.findAll())
         {
-            for (Comments c : p.getComment())
+            for(Sniffer s : snifferRepository.findAll())
             {
-                if(c.getCowner().equals(user))
+                for(Pubdate pp : s.getShared())
                 {
-                    p.removeComment(c);
-                    commentRepository.deleteById(c.getId());
-                }
-            }
-        }
-
-        for(Pubdate p : pubdateRepository.findAll())
-        {
-            if(p.getPowner().equals(snifferRepository.findById(id).get()))
-            {
-                for(Comments c : commentRepository.findAll())
-                {
-                    for(Comments cc : p.getComment())
+                    if(p.equals(pp))
                     {
-                        if(c.equals(cc))
-                        {
-                            p.removeComment(c);
-                            commentRepository.deleteById(c.getId());
-                        }
+                        s.removeShared(p);
+                        pubdateRepository.save(p);
                     }
                 }
             }
         }
 
+        //Löschung von gefolgten
         for(Sniffer s : user.getfollowed())
         {
             s.removefollowed_by(user);
             snifferRepository.save(s);
         }
 
+        //Löschung von Followers
         for(Sniffer s : user.getfollowed_by())
         {
             s.removeFollowed(user);
         }
-
-        //user.removeShared();
 
         snifferRepository.deleteById(id);
 

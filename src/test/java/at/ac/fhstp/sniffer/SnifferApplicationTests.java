@@ -100,7 +100,7 @@ class SnifferApplicationTests {
 		Pubdate pub = new Pubdate();
 		comment.setPub(pub);
 		comment.setId(1);
-		comment.setComment("Wilder Kommentar");
+		comment.setText("Wilder Kommentar");
 		comments.add(comment);
 		Mockito.when(commentService.getAllComments()).thenReturn(comments);
 		mockMvc.perform(get("/comments"))

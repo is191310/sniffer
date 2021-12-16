@@ -28,18 +28,20 @@ public class Pubdate implements Comparable<Pubdate>
     @Column 
     int likes;
    
-    @OneToMany
+    @ManyToMany
     private Set<Sniffer> liked_by;
 
-    @OneToMany(orphanRemoval = true)
+    @OneToMany(mappedBy = "pub", orphanRemoval = true)
     private Set<Comments> comment;
 
-    @OneToOne
-    @JoinColumn
+    @ManyToOne
     private Sniffer powner;
 
     @Column
     private Date date;
+
+    @ManyToMany
+    private Set<Sniffer> shared_by;
 
     public Pubdate(){}
 
