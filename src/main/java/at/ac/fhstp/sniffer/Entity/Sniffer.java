@@ -139,4 +139,21 @@ public class Sniffer
         this.shared.remove(pub);
     }
 
+    public Set<Pubdate> getLiked() 
+    {
+        return liked;
+    }
+
+    public void setLiked(Pubdate like) 
+    {
+        this.liked.add(like);
+    }
+
+    public void removeLike(Pubdate unlike)
+    {
+        this.liked.remove(unlike);
+    }
+
+    
+
 }

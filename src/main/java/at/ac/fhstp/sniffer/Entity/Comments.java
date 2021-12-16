@@ -4,7 +4,6 @@ import java.util.Date;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table
 public class Comments 
@@ -28,12 +27,10 @@ public class Comments
 
     public Comments()
     {
-        super();
     }
 
     public Comments(String text, Sniffer cowner, Pubdate pub) 
     {
-        super();
         this.text = text;
         this.cowner = cowner;
         this.pub = pub;

@@ -8,8 +8,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import javax.persistence.*;
 
-
-
 @Entity
 @Table
 public class Pubdate implements Comparable<Pubdate>
@@ -139,6 +137,16 @@ public class Pubdate implements Comparable<Pubdate>
 
     public void setMetadata(String metadata) {
         this.metadata = metadata;
+    }
+
+    public Set<Sniffer> getShared_by() 
+    {
+        return shared_by;
+    }
+
+    public void setShared_by(Sniffer shared) 
+    {
+        this.shared_by.add(shared);
     }
 
     private String genBase64()

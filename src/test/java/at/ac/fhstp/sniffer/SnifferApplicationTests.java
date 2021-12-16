@@ -106,7 +106,7 @@ class SnifferApplicationTests {
 		mockMvc.perform(get("/comments"))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$", Matchers.hasSize(1)))
-				.andExpect(jsonPath("$[0].comment", Matchers.equalTo("Wilder Kommentar")));
+				.andExpect(jsonPath("$[0].text", Matchers.equalTo("Wilder Kommentar")));
 	}
 	
 	@Test

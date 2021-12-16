@@ -60,6 +60,8 @@ public class PubdateService
         Pubdate likeimg = pubdateRepository.findById(imgid).get();
         
         likeimg.setliked_by(from);
+        from.setLiked(likeimg);
+        snifferRepository.save(from);
         pubdateRepository.save(likeimg);
         return "You have liked " + likeimg.getTitle();
     }
@@ -83,8 +85,6 @@ public class PubdateService
         pubdateRepository.save(likeimg);
         return "You have liked " + likeimg.getTitle();
     }
-
-
 
     public String commentPub(String com, int imgid, int fromid)
     {
@@ -127,7 +127,9 @@ public class PubdateService
         Pubdate pub = pubdateRepository.findById(imgid).get();
         
         from.setShared(pub);
+        pub.setShared_by(from);
         snifferRepository.save(from);
+        pubdateRepository.save(pub);
 
         return "You have shared " + pub.getTitle();
     }
