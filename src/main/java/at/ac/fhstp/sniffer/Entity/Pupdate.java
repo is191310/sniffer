@@ -77,7 +77,6 @@ public class Pupdate implements Comparable<Pupdate>
     public Set<Sniffer> getliked_by() 
     {
         return liked_by;
-
     }   
     
     public void setliked_by(Sniffer liked_by) 
@@ -89,7 +88,6 @@ public class Pupdate implements Comparable<Pupdate>
     {
         this.liked_by.remove(liked_by);
     }
-
 
     public Set<Comments> getComment() 
     {

@@ -41,7 +41,6 @@ public class PupdateService
         Sniffer owner = snifferRepository.findById(id).get();
         
         return pupdateRepository.save(new Pupdate(title, owner));
-
     }
 
     public String likePup(int imgid, int fromid)
@@ -61,6 +60,7 @@ public class PupdateService
         
         likeimg.setliked_by(from);
         pupdateRepository.save(likeimg);
+        
         return "You have liked " + likeimg.getTitle();
     }
 
@@ -81,6 +81,7 @@ public class PupdateService
         
         likeimg.removeliked_by(from);
         pupdateRepository.save(likeimg);
+
         return "You have liked " + likeimg.getTitle();
     }
 
@@ -104,8 +105,8 @@ public class PupdateService
         
         comimg.setComment(co);
         pupdateRepository.save(comimg);
-        return "You commented " + comimg.getTitle();
 
+        return "You commented " + comimg.getTitle();
     }
 
     public String share(int fromid, int imgid)
@@ -126,6 +127,7 @@ public class PupdateService
         
         from.setShared(pup);
         pup.setShared_by(from);
+
         snifferRepository.save(from);
         pupdateRepository.save(pup);
 

@@ -25,9 +25,7 @@ public class Comments
     @ManyToOne
     private Sniffer cowner;
 
-    public Comments()
-    {
-    }
+    public Comments(){}
 
     public Comments(String text, Sniffer cowner, Pupdate pup) 
     {

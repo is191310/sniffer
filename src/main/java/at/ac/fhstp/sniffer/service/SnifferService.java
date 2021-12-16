@@ -75,10 +75,13 @@ public class SnifferService
         
         Sniffer from = snifferRepository.findById(fromid).get();
         Sniffer follow = snifferRepository.findById(fid).get();
+
         follow.setfollowed_by(from);
         from.setfollowed(follow);
+
         snifferRepository.save(from);
         snifferRepository.save(follow);
+
         return from.getName() + " follows " + follow.getName();
     }
 
@@ -180,14 +183,12 @@ public class SnifferService
             }
         }
 
-        //Löschung von gefolgten
         for(Sniffer s : user.getfollowed())
         {
             s.removefollowed_by(user);
             snifferRepository.save(s);
         }
 
-        //Löschung von Followers
         for(Sniffer s : user.getfollowed_by())
         {
             s.removeFollowed(user);
