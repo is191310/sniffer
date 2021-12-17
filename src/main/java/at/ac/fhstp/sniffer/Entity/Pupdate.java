@@ -26,7 +26,7 @@ public class Pupdate implements Comparable<Pupdate>
     @Column 
     int likes;
    
-    @OneToMany
+    @ManyToMany
     private Set<Sniffer> liked_by;
 
     @OneToMany(mappedBy = "pup", orphanRemoval = true)
